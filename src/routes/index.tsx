@@ -12,27 +12,28 @@ function Index() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-3 py-1 text-xs text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Desarrollo con inteligencia artificial
+            Soluciones digitales e inteligencia artificial
           </span>
           <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-            Construimos <span className="text-gradient">soluciones digitales</span> con IA.
+            <span className="text-gradient">Vrixora</span> — software e IA para negocios y operaciones.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            Vrixora diseña y desarrolla aplicaciones inteligentes, simples y confiables.
-            Nuestro primer producto es TukTuk: control total de tu vehículo, sin complicaciones.
+            Diseñamos y desarrollamos aplicaciones y soluciones con inteligencia artificial de
+            forma rápida y confiable. Ayudamos a empresas y equipos a operar mejor con
+            tecnología moderna.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
-              to="/tuktuk"
+              to="/soluciones"
               className="rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5"
             >
-              Conocer TukTuk →
+              Conocer nuestras soluciones →
             </Link>
             <Link
-              to="/soporte"
+              to="/servicios"
               className="rounded-lg border border-border px-6 py-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
             >
-              Contactar soporte
+              Ver servicios
             </Link>
           </div>
         </div>
@@ -42,9 +43,9 @@ function Index() {
       <section className="mx-auto max-w-6xl px-6 pb-20">
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { t: "Diseño enfocado", d: "Interfaces limpias, rápidas y adaptadas a móvil y computadora." },
-            { t: "IA aplicada", d: "Automatizamos tareas y potenciamos decisiones con modelos modernos." },
-            { t: "Privacidad primero", d: "Sin rastreo innecesario. Tus datos, bajo tu control." },
+            { t: "Desarrollo rápido", d: "Prototipos y productos funcionales en tiempos cortos, sin sacrificar calidad." },
+            { t: "IA aplicada", d: "Integramos modelos modernos donde realmente aportan valor al negocio." },
+            { t: "Enfoque en operaciones", d: "Herramientas pensadas para equipos, MIPYMES y flujos de trabajo reales." },
           ].map((f) => (
             <div key={f.t} className="glass rounded-xl p-6 shadow-[var(--shadow-card)]">
               <div className="mb-3 h-8 w-8 rounded-md bg-[image:var(--gradient-brand)]" />
@@ -54,7 +55,40 @@ function Index() {
           ))}
         </div>
       </section>
+
+      {/* Featured product */}
+      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <div className="glass rounded-2xl p-8 shadow-[var(--shadow-card)] md:p-10">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+            <div className="max-w-xl">
+              <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                Nuestro primer producto
+              </span>
+              <h2 className="mt-4 text-2xl font-bold md:text-3xl">
+                <span className="text-gradient">TukTuk</span> — control total de tu vehículo.
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Ingresos, gastos, kilometraje, combustible y mantenimientos. Simple, rápido y
+                offline. Próximamente en Google Play.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/tuktuk"
+                className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
+              >
+                Ver TukTuk →
+              </Link>
+              <Link
+                to="/soluciones"
+                className="rounded-lg border border-border px-5 py-2.5 text-sm hover:bg-accent hover:text-accent-foreground"
+              >
+                Todas las soluciones
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
-

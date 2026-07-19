@@ -1,12 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/soporte")({
   head: () => ({
     meta: [
       { title: "Soporte — Vrixora" },
-      { name: "description", content: "Soporte de Vrixora y TukTuk: contáctanos por WhatsApp o correo y consulta las preguntas frecuentes." },
+      { name: "description", content: "Soporte general de Vrixora y soporte específico por producto. Contáctanos por WhatsApp o correo." },
       { property: "og:title", content: "Soporte — Vrixora" },
+      { property: "og:description", content: "Soporte general y por producto." },
       { property: "og:url", content: "/soporte" },
     ],
     links: [{ rel: "canonical", href: "/soporte" }],
@@ -17,13 +18,14 @@ export const Route = createFileRoute("/soporte")({
 // TODO: reemplazar con número real
 const WHATSAPP_NUMBER = "5490000000000";
 const SUPPORT_EMAIL = "soporte@vrixora.com";
+const TUKTUK_SUPPORT_EMAIL = "tuktuk@vrixora.com";
 
 const faqs = [
+  { q: "¿Qué es Vrixora?", a: "Vrixora desarrolla soluciones digitales y aplicaciones con inteligencia artificial para negocios y operaciones." },
+  { q: "¿Ofrecen desarrollo a medida?", a: "Sí. Construimos aplicaciones y automatizaciones a medida para empresas y equipos. Escríbenos y conversemos." },
   { q: "¿TukTuk funciona sin internet?", a: "Sí. TukTuk funciona completamente offline. Todos tus datos se guardan en tu dispositivo." },
-  { q: "¿Dónde estará disponible?", a: "Próximamente en Google Play. Estamos afinando los últimos detalles antes de publicarla." },
-  { q: "¿Puedo respaldar mis datos?", a: "Sí. Podrás exportar e importar copias de respaldo desde la app cuando lo necesites." },
-  { q: "¿Se comparten mis datos?", a: "No. TukTuk no envía tu información a nuestros servidores ni a terceros." },
-  { q: "¿Cómo reporto un problema?", a: "Escríbenos por WhatsApp o al correo de soporte. Respondemos lo antes posible." },
+  { q: "¿Dónde estará disponible TukTuk?", a: "Próximamente en Google Play. Estamos afinando los últimos detalles antes de publicarla." },
+  { q: "¿Se comparten mis datos?", a: "No. Nuestros productos priorizan la privacidad y no envían tus datos a terceros." },
 ];
 
 function SupportPage() {
@@ -34,7 +36,8 @@ function SupportPage() {
         Elige el canal que prefieras. Sin formularios largos, sin registros.
       </p>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
+      <h2 className="mt-12 text-2xl font-bold">Soporte general de Vrixora</h2>
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
@@ -57,9 +60,52 @@ function SupportPage() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
           </div>
           <h3 className="text-lg font-semibold">Correo</h3>
-          <p className="mt-1 text-sm text-muted-foreground">Para consultas o reportes detallados.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Para consultas o proyectos.</p>
           <span className="mt-3 inline-block text-sm font-medium text-primary group-hover:underline">{SUPPORT_EMAIL}</span>
         </a>
+      </div>
+
+      <h2 className="mt-14 text-2xl font-bold">Soporte por producto</h2>
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <div className="glass rounded-xl p-6 shadow-[var(--shadow-card)]">
+          <div className="flex items-center justify-between">
+            <div className="h-9 w-9 rounded-md bg-[image:var(--gradient-brand)]" />
+            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              Disponible
+            </span>
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">TukTuk</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Consultas sobre la app: funciones, respaldos y descarga.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a
+              href={`mailto:${TUKTUK_SUPPORT_EMAIL}`}
+              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+            >
+              {TUKTUK_SUPPORT_EMAIL}
+            </a>
+            <Link
+              to="/tuktuk"
+              className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+            >
+              Ver producto
+            </Link>
+          </div>
+        </div>
+
+        <div className="glass rounded-xl border border-dashed border-border p-6">
+          <div className="flex items-center justify-between">
+            <div className="h-9 w-9 rounded-md bg-[image:var(--gradient-brand)] opacity-60" />
+            <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
+              Próximamente
+            </span>
+          </div>
+          <h3 className="mt-4 text-lg font-semibold">Nuevos productos</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Habilitaremos canales específicos para cada nuevo producto cuando estén disponibles.
+          </p>
+        </div>
       </div>
 
       <section className="mt-16">

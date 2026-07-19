@@ -31,12 +31,15 @@ function TukTukPage() {
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-              Próximamente en Google Play
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              Nuestro primer producto · Próximamente en Google Play
             </span>
             <h1 className="mt-6 text-4xl font-bold md:text-5xl">
               <span className="text-gradient">TukTuk</span> — el control total de tu vehículo.
             </h1>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Un producto de <Link to="/soluciones" className="text-primary underline">Vrixora</Link>.
+            </p>
             <p className="mt-6 text-lg text-muted-foreground">
               Aplicación pensada para conductores que necesitan claridad: ingresos, gastos,
               kilometraje, cargas y mantenimientos en un solo lugar. Simple, rápida y offline.

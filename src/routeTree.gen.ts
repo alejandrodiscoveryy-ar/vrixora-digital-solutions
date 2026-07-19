@@ -12,9 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TuktukRouteImport } from './routes/tuktuk'
 import { Route as SoporteRouteImport } from './routes/soporte'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrivacidadIndexRouteImport } from './routes/privacidad.index'
 
 const TuktukRoute = TuktukRouteImport.update({
   id: '/tuktuk',
@@ -31,11 +31,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacidadRoute = PrivacidadRouteImport.update({
-  id: '/privacidad',
-  path: '/privacidad',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -46,60 +41,65 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacidadIndexRoute = PrivacidadIndexRouteImport.update({
+  id: '/privacidad/',
+  path: '/privacidad/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/privacidad': typeof PrivacidadRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
+  '/privacidad/': typeof PrivacidadIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/privacidad': typeof PrivacidadRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
+  '/privacidad': typeof PrivacidadIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/privacidad': typeof PrivacidadRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
+  '/privacidad/': typeof PrivacidadIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/admin'
-    | '/privacidad'
     | '/sitemap.xml'
     | '/soporte'
     | '/tuktuk'
+    | '/privacidad/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/privacidad' | '/sitemap.xml' | '/soporte' | '/tuktuk'
+  to: '/' | '/admin' | '/sitemap.xml' | '/soporte' | '/tuktuk' | '/privacidad'
   id:
     | '__root__'
     | '/'
     | '/admin'
-    | '/privacidad'
     | '/sitemap.xml'
     | '/soporte'
     | '/tuktuk'
+    | '/privacidad/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
-  PrivacidadRoute: typeof PrivacidadRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SoporteRoute: typeof SoporteRoute
   TuktukRoute: typeof TuktukRoute
+  PrivacidadIndexRoute: typeof PrivacidadIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -125,13 +125,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacidad': {
-      id: '/privacidad'
-      path: '/privacidad'
-      fullPath: '/privacidad'
-      preLoaderRoute: typeof PrivacidadRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -146,16 +139,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacidad/': {
+      id: '/privacidad/'
+      path: '/privacidad'
+      fullPath: '/privacidad/'
+      preLoaderRoute: typeof PrivacidadIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
-  PrivacidadRoute: PrivacidadRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SoporteRoute: SoporteRoute,
   TuktukRoute: TuktukRoute,
+  PrivacidadIndexRoute: PrivacidadIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
