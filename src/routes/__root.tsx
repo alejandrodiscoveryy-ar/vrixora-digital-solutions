@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -16,17 +16,17 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h1 className="text-7xl font-bold text-gradient">404</h1>
+        <h2 className="mt-4 text-xl font-semibold">Página no encontrada</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          La página que buscas no existe o ha sido movida.
         </p>
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:opacity-90"
           >
-            Go home
+            Volver al inicio
           </Link>
         </div>
       </div>
@@ -44,27 +44,19 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold">Esta página no cargó</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          Algo salió mal. Puedes reintentar o volver al inicio.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            onClick={() => { router.invalidate(); reset(); }}
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            Try again
+            Reintentar
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
+          <a href="/" className="rounded-md border border-border px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground">
+            Ir al inicio
           </a>
         </div>
       </div>
@@ -77,20 +69,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Vrixora — Soluciones digitales con IA" },
+      { name: "description", content: "Vrixora desarrolla soluciones digitales con inteligencia artificial. Descubre TukTuk, la app para controlar ingresos, gastos, kilometraje y mantenimientos." },
+      { name: "author", content: "Vrixora" },
+      { property: "og:title", content: "Vrixora — Soluciones digitales con IA" },
+      { property: "og:description", content: "Desarrollamos apps inteligentes. Conoce TukTuk." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Vrixora" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -102,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>
@@ -114,13 +106,106 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
+function Nav() {
+  const [open, setOpen] = useState(false);
+  const links = [
+    { to: "/", label: "Inicio" },
+    { to: "/tuktuk", label: "TukTuk" },
+    { to: "/soporte", label: "Soporte" },
+    { to: "/privacidad", label: "Privacidad" },
+  ] as const;
 
   return (
+    <header className="sticky top-0 z-50 glass">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
+          <span className="inline-block h-7 w-7 rounded-md bg-[image:var(--gradient-brand)] shadow-[var(--shadow-glow)]" />
+          <span>Vrixora</span>
+        </Link>
+        <nav className="hidden gap-8 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-sm text-foreground font-medium" }}
+              activeOptions={{ exact: l.to === "/" }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="hidden md:block">
+          <Link
+            to="/admin"
+            className="rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground"
+          >
+            Área admin
+          </Link>
+        </div>
+        <button
+          className="rounded-md border border-border p-2 md:hidden"
+          aria-label="Abrir menú"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+      {open && (
+        <div className="border-t border-border md:hidden">
+          <div className="mx-auto flex max-w-6xl flex-col px-6 py-3">
+            {links.map((l) => (
+              <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="py-2 text-sm text-muted-foreground hover:text-foreground">
+                {l.label}
+              </Link>
+            ))}
+            <Link to="/admin" onClick={() => setOpen(false)} className="py-2 text-sm text-muted-foreground hover:text-foreground">
+              Área admin
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="mt-24 border-t border-border">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 py-10 md:flex-row md:items-center">
+        <div>
+          <div className="flex items-center gap-2 font-display font-bold">
+            <span className="inline-block h-5 w-5 rounded bg-[image:var(--gradient-brand)]" />
+            Vrixora
+          </div>
+          <p className="mt-2 text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Vrixora. Soluciones digitales con IA.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-6 text-xs text-muted-foreground">
+          <Link to="/tuktuk" className="hover:text-foreground">TukTuk</Link>
+          <Link to="/soporte" className="hover:text-foreground">Soporte</Link>
+          <Link to="/privacidad" className="hover:text-foreground">Privacidad</Link>
+          <Link to="/admin" className="hover:text-foreground">Admin</Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+  return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="flex min-h-screen flex-col">
+        <Nav />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
