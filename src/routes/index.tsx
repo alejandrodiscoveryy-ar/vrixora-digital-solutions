@@ -46,7 +46,7 @@ function Index() {
             { t: "IA aplicada", d: "Automatizamos tareas y potenciamos decisiones con modelos modernos." },
             { t: "Privacidad primero", d: "Sin rastreo innecesario. Tus datos, bajo tu control." },
           ].map((f) => (
-            <div key={t(f.t)} className="glass rounded-xl p-6 shadow-[var(--shadow-card)]">
+            <div key={f.t} className="glass rounded-xl p-6 shadow-[var(--shadow-card)]">
               <div className="mb-3 h-8 w-8 rounded-md bg-[image:var(--gradient-brand)]" />
               <h3 className="text-lg font-semibold">{f.t}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{f.d}</p>
