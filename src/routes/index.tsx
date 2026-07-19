@@ -58,4 +58,3 @@ function Index() {
   );
 }
 
-function t(s: string) { return s; }
