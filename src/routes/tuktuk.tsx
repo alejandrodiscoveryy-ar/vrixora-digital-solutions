@@ -51,6 +51,9 @@ function TukTukPage() {
               <Link to="/soporte" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground">
                 Preguntas y soporte
               </Link>
+              <Link to="/privacidad/tuktuk" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground">
+                Política de privacidad
+              </Link>
             </div>
           </div>
 
