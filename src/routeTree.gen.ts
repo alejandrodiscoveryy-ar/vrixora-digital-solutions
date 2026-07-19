@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TuktukRouteImport } from './routes/tuktuk'
 import { Route as SoporteRouteImport } from './routes/soporte'
+import { Route as SolucionesRouteImport } from './routes/soluciones'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrivacidadIndexRouteImport } from './routes/privacidad.index'
+import { Route as PrivacidadTuktukRouteImport } from './routes/privacidad.tuktuk'
 
 const TuktukRoute = TuktukRouteImport.update({
   id: '/tuktuk',
@@ -26,9 +30,19 @@ const SoporteRoute = SoporteRouteImport.update({
   path: '/soporte',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SolucionesRoute = SolucionesRouteImport.update({
+  id: '/soluciones',
+  path: '/soluciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadRoute = PrivacidadRouteImport.update({
@@ -46,31 +60,52 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacidadIndexRoute = PrivacidadIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrivacidadRoute,
+} as any)
+const PrivacidadTuktukRoute = PrivacidadTuktukRouteImport.update({
+  id: '/tuktuk',
+  path: '/tuktuk',
+  getParentRoute: () => PrivacidadRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/privacidad': typeof PrivacidadRoute
+  '/privacidad': typeof PrivacidadRouteWithChildren
+  '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
+  '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/': typeof PrivacidadIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/privacidad': typeof PrivacidadRoute
+  '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
+  '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad': typeof PrivacidadIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/privacidad': typeof PrivacidadRoute
+  '/privacidad': typeof PrivacidadRouteWithChildren
+  '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
+  '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/': typeof PrivacidadIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,26 +113,45 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/privacidad'
+    | '/servicios'
     | '/sitemap.xml'
+    | '/soluciones'
     | '/soporte'
     | '/tuktuk'
+    | '/privacidad/tuktuk'
+    | '/privacidad/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/privacidad' | '/sitemap.xml' | '/soporte' | '/tuktuk'
+  to:
+    | '/'
+    | '/admin'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/soluciones'
+    | '/soporte'
+    | '/tuktuk'
+    | '/privacidad/tuktuk'
+    | '/privacidad'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/privacidad'
+    | '/servicios'
     | '/sitemap.xml'
+    | '/soluciones'
     | '/soporte'
     | '/tuktuk'
+    | '/privacidad/tuktuk'
+    | '/privacidad/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
-  PrivacidadRoute: typeof PrivacidadRoute
+  PrivacidadRoute: typeof PrivacidadRouteWithChildren
+  ServiciosRoute: typeof ServiciosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SolucionesRoute: typeof SolucionesRoute
   SoporteRoute: typeof SoporteRoute
   TuktukRoute: typeof TuktukRoute
 }
@@ -118,11 +172,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SoporteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/soluciones': {
+      id: '/soluciones'
+      path: '/soluciones'
+      fullPath: '/soluciones'
+      preLoaderRoute: typeof SolucionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacidad': {
@@ -146,14 +214,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacidad/': {
+      id: '/privacidad/'
+      path: '/'
+      fullPath: '/privacidad/'
+      preLoaderRoute: typeof PrivacidadIndexRouteImport
+      parentRoute: typeof PrivacidadRoute
+    }
+    '/privacidad/tuktuk': {
+      id: '/privacidad/tuktuk'
+      path: '/tuktuk'
+      fullPath: '/privacidad/tuktuk'
+      preLoaderRoute: typeof PrivacidadTuktukRouteImport
+      parentRoute: typeof PrivacidadRoute
+    }
   }
 }
+
+interface PrivacidadRouteChildren {
+  PrivacidadTuktukRoute: typeof PrivacidadTuktukRoute
+  PrivacidadIndexRoute: typeof PrivacidadIndexRoute
+}
+
+const PrivacidadRouteChildren: PrivacidadRouteChildren = {
+  PrivacidadTuktukRoute: PrivacidadTuktukRoute,
+  PrivacidadIndexRoute: PrivacidadIndexRoute,
+}
+
+const PrivacidadRouteWithChildren = PrivacidadRoute._addFileChildren(
+  PrivacidadRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
-  PrivacidadRoute: PrivacidadRoute,
+  PrivacidadRoute: PrivacidadRouteWithChildren,
+  ServiciosRoute: ServiciosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SolucionesRoute: SolucionesRoute,
   SoporteRoute: SoporteRoute,
   TuktukRoute: TuktukRoute,
 }
