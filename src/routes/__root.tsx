@@ -110,7 +110,8 @@ function Nav() {
   const [open, setOpen] = useState(false);
   const links = [
     { to: "/", label: "Inicio" },
-    { to: "/tuktuk", label: "TukTuk" },
+    { to: "/soluciones", label: "Soluciones" },
+    { to: "/servicios", label: "Servicios" },
     { to: "/soporte", label: "Soporte" },
     { to: "/privacidad", label: "Privacidad" },
   ] as const;
@@ -185,7 +186,9 @@ function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap gap-6 text-xs text-muted-foreground">
+          <Link to="/soluciones" className="hover:text-foreground">Soluciones</Link>
           <Link to="/tuktuk" className="hover:text-foreground">TukTuk</Link>
+          <Link to="/servicios" className="hover:text-foreground">Servicios</Link>
           <Link to="/soporte" className="hover:text-foreground">Soporte</Link>
           <Link to="/privacidad" className="hover:text-foreground">Privacidad</Link>
           <Link to="/admin" className="hover:text-foreground">Admin</Link>
