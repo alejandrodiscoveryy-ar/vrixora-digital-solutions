@@ -11,12 +11,11 @@ function Index() {
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-            <span className="text-gradient">Vrixora</span> — soluciones digitales e inteligencia artificial.
+            <span className="text-gradient">Vrixora</span> — soluciones digitales para negocios.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            Diseñamos y desarrollamos aplicaciones y soluciones con inteligencia artificial de
-            forma rápida y confiable. Ayudamos a empresas y equipos a operar mejor con
-            tecnología moderna.
+            Diseñamos y desarrollamos aplicaciones y soluciones digitales de forma rápida y
+            confiable. Ayudamos a empresas y equipos a operar mejor con tecnología moderna.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
@@ -40,7 +39,7 @@ function Index() {
         <div className="grid gap-4 md:grid-cols-3">
           {[
             { t: "Desarrollo rápido", d: "Prototipos y productos funcionales en tiempos cortos, sin sacrificar calidad." },
-            { t: "IA aplicada", d: "Integramos modelos modernos donde realmente aportan valor al negocio." },
+            { t: "Tecnología aplicada", d: "Integramos herramientas modernas donde realmente aportan valor al negocio." },
             { t: "Enfoque en operaciones", d: "Herramientas pensadas para equipos, MIPYMES y flujos de trabajo reales." },
           ].map((f) => (
             <div key={f.t} className="glass rounded-xl p-6 shadow-[var(--shadow-card)]">
