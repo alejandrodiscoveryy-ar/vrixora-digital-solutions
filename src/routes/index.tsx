@@ -10,12 +10,8 @@ function Index() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-3 py-1 text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Soluciones digitales e inteligencia artificial
-          </span>
-          <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-            <span className="text-gradient">Vrixora</span> — soluciones inteligentes para negocios inteligentes.
+          <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+            <span className="text-gradient">Vrixora</span> — soluciones digitales e inteligencia artificial.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
             Diseñamos y desarrollamos aplicaciones y soluciones con inteligencia artificial de

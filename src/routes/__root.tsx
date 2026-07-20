@@ -69,15 +69,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Vrixora — Soluciones inteligentes para negocios inteligentes" },
+      { title: "Vrixora — Soluciones digitales e inteligencia artificial" },
       { name: "description", content: "Vrixora desarrolla soluciones digitales e inteligencia artificial. Descubre TukTuk, la app para controlar ingresos, gastos, kilometraje y mantenimientos." },
       { name: "author", content: "Vrixora" },
-      { property: "og:title", content: "Vrixora — Soluciones inteligentes para negocios inteligentes" },
+      { property: "og:title", content: "Vrixora — Soluciones digitales e inteligencia artificial" },
       { property: "og:description", content: "Vrixora desarrolla soluciones digitales e inteligencia artificial. Descubre TukTuk, la app para controlar ingresos, gastos, kilometraje y mantenimientos." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Vrixora" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Vrixora — Soluciones inteligentes para negocios inteligentes" },
+      { name: "twitter:title", content: "Vrixora — Soluciones digitales e inteligencia artificial" },
       { name: "twitter:description", content: "Vrixora desarrolla soluciones digitales e inteligencia artificial. Descubre TukTuk, la app para controlar ingresos, gastos, kilometraje y mantenimientos." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/710bfde1-bc32-4db5-afee-22c288443b41/id-preview-31a335fa--bb6c3216-425a-4183-83aa-17b6351d7269.lovable.app-1784461710297.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/710bfde1-bc32-4db5-afee-22c288443b41/id-preview-31a335fa--bb6c3216-425a-4183-83aa-17b6351d7269.lovable.app-1784461710297.png" },
@@ -186,7 +186,7 @@ function Footer() {
             Vrixora
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Vrixora. Soluciones inteligentes para negocios inteligentes.
+            © {new Date().getFullYear()} Vrixora. Soluciones digitales e inteligencia artificial.
           </p>
         </div>
         <div className="flex flex-wrap gap-6 text-xs text-muted-foreground">
