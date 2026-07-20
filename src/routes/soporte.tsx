@@ -21,7 +21,7 @@ const SUPPORT_EMAIL = "soporte@vrixora.com";
 const TUKTUK_SUPPORT_EMAIL = "tuktuk@vrixora.com";
 
 const faqs = [
-  { q: "¿Qué es Vrixora?", a: "Vrixora desarrolla soluciones digitales y aplicaciones con inteligencia artificial para negocios y operaciones." },
+  { q: "¿Qué es Vrixora?", a: "Vrixora desarrolla soluciones digitales y aplicaciones para negocios y operaciones." },
   { q: "¿Ofrecen desarrollo a medida?", a: "Sí. Construimos aplicaciones y automatizaciones a medida para empresas y equipos. Escríbenos y conversemos." },
   { q: "¿TukTuk funciona sin internet?", a: "Sí. TukTuk funciona completamente offline. Todos tus datos se guardan en tu dispositivo." },
   { q: "¿Dónde estará disponible TukTuk?", a: "Próximamente en Google Play. Estamos afinando los últimos detalles antes de publicarla." },

@@ -4,9 +4,9 @@ export const Route = createFileRoute("/servicios")({
   head: () => ({
     meta: [
       { title: "Servicios — Vrixora" },
-      { name: "description", content: "Servicios de Vrixora: desarrollo de aplicaciones, automatización, soluciones para MIPYMES y consultoría e integración de inteligencia artificial." },
+      { name: "description", content: "Servicios de Vrixora: desarrollo de aplicaciones, automatización, soluciones para MIPYMES y consultoría tecnológica." },
       { property: "og:title", content: "Servicios — Vrixora" },
-      { property: "og:description", content: "Desarrollo, automatización, soluciones para MIPYMES e integración de IA." },
+      { property: "og:description", content: "Desarrollo, automatización, soluciones para MIPYMES y consultoría tecnológica." },
       { property: "og:url", content: "/servicios" },
     ],
     links: [{ rel: "canonical", href: "/servicios" }],
@@ -28,8 +28,8 @@ const services = [
     d: "Herramientas accesibles pensadas para micro, pequeñas y medianas empresas: rápidas de adoptar y fáciles de usar.",
   },
   {
-    t: "Consultoría e integración de IA",
-    d: "Detectamos oportunidades de IA en tu negocio e integramos modelos modernos donde realmente aportan valor.",
+    t: "Consultoría tecnológica",
+    d: "Detectamos oportunidades de mejora en tu operación e integramos herramientas modernas donde realmente aportan valor.",
   },
 ];
 
@@ -42,11 +42,11 @@ function ServiciosPage() {
             Servicios profesionales
           </span>
           <h1 className="mt-6 text-4xl font-bold md:text-5xl">
-            Construimos <span className="text-gradient">software e IA</span> para tu operación.
+            Construimos <span className="text-gradient">software a medida</span> para tu operación.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Acompañamos a empresas y equipos en el diseño, desarrollo e integración de
-            soluciones digitales, con especial foco en inteligencia artificial aplicada.
+            soluciones digitales pensadas para su contexto y escala.
           </p>
         </div>
       </section>

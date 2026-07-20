@@ -21,7 +21,7 @@ function PrivacyPage() {
       <p className="text-sm text-muted-foreground">Última actualización: {updated}</p>
       <h1 className="mt-3 text-4xl font-bold md:text-5xl">Política de privacidad — Vrixora</h1>
       <p className="mt-6 text-muted-foreground">
-        Vrixora desarrolla soluciones digitales y aplicaciones con inteligencia artificial.
+        Vrixora desarrolla soluciones digitales y aplicaciones para negocios.
         Esta política describe cómo tratamos la información en <strong>vrixora.com</strong> y
         en los productos que ofrecemos. Cada producto puede contar además con una política
         específica, enlazada al final de esta página.
