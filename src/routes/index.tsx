@@ -15,7 +15,7 @@ function Index() {
             Soluciones digitales e inteligencia artificial
           </span>
           <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-            <span className="text-gradient">Vrixora</span> — software e IA para negocios y operaciones.
+            <span className="text-gradient">Vrixora</span> — soluciones inteligentes para negocios inteligentes.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
             Diseñamos y desarrollamos aplicaciones y soluciones con inteligencia artificial de
