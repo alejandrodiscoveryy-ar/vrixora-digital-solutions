@@ -186,7 +186,7 @@ function Footer() {
             Vrixora
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Vrixora. Soluciones digitales con IA.
+            © {new Date().getFullYear()} Vrixora. Soluciones inteligentes para negocios inteligentes.
           </p>
         </div>
         <div className="flex flex-wrap gap-6 text-xs text-muted-foreground">
