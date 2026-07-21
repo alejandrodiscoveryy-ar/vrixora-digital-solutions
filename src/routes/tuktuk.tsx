@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import tuktukIcon from "../assets/tuktuk-icon.jpg";
+import tuktukIcon from "../assets/tuktuk-icon.png";
 
 export const Route = createFileRoute("/tuktuk")({
   head: () => ({
