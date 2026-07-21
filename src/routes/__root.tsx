@@ -11,6 +11,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import vrixoraIsotype from "../assets/vrixora-isotype.jpg";
 
 function NotFoundComponent() {
   return (
