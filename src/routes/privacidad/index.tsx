@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/privacidad/")({
+export const Route = createFileRoute("/privacidad")({
   head: () => ({
     meta: [
       { title: "Privacidad — Vrixora" },
