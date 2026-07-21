@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import tuktukIcon from "../assets/tuktuk-icon.jpg.asset.json";
 
 export const Route = createFileRoute("/tuktuk")({
   head: () => ({
@@ -57,30 +58,15 @@ function TukTukPage() {
             </div>
           </div>
 
-          {/* Mock device */}
-          <div className="relative mx-auto">
-            <div className="glass relative w-64 rounded-[2.5rem] p-3 shadow-[var(--shadow-glow)]">
-              <div className="rounded-[2rem] bg-background p-5">
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="text-xs text-muted-foreground">Hoy</div>
-                  <div className="h-6 w-6 rounded-md bg-[image:var(--gradient-brand)]" />
-                </div>
-                <div className="text-xs text-muted-foreground">Balance</div>
-                <div className="text-3xl font-bold text-gradient">$ 1.240</div>
-                <div className="mt-4 space-y-2">
-                  {[
-                    { l: "Ingresos", v: "$ 1.800", c: "text-accent" },
-                    { l: "Gastos", v: "$ 560", c: "text-muted-foreground" },
-                    { l: "Km hoy", v: "142", c: "text-muted-foreground" },
-                  ].map((r) => (
-                    <div key={r.l} className="flex items-center justify-between rounded-lg bg-surface/60 px-3 py-2 text-sm">
-                      <span className="text-muted-foreground">{r.l}</span>
-                      <span className={`font-semibold ${r.c}`}>{r.v}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 h-16 rounded-lg bg-[linear-gradient(180deg,transparent,color-mix(in_oklab,var(--brand)_25%,transparent))]" />
-              </div>
+          {/* App icon */}
+          <div className="relative mx-auto flex justify-center">
+            <div className="relative">
+              <div className="absolute -inset-10 rounded-full bg-[var(--brand)]/10 blur-3xl" />
+              <img
+                src={tuktukIcon.url}
+                alt="Icono de la app TukTuk"
+                className="relative w-56 rounded-[2rem] shadow-[var(--shadow-glow)] md:w-72"
+              />
             </div>
           </div>
         </div>
