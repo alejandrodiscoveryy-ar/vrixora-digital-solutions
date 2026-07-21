@@ -125,7 +125,7 @@ function Nav() {
     <header className="sticky top-0 z-50 glass">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
-          <span className="inline-block h-7 w-7 rounded-md bg-[image:var(--gradient-brand)] shadow-[var(--shadow-glow)]" />
+          <img src={vrixoraIsotype} alt="Vrixora" className="h-8 w-8 rounded-md object-cover" />
           <span>Vrixora</span>
         </Link>
         <nav className="hidden gap-8 md:flex">
