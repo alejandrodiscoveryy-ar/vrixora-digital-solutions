@@ -167,9 +167,9 @@ function Nav() {
                 {l.label}
               </Link>
             ))}
-            <Link to="/admin" onClick={() => setOpen(false)} className="py-2 text-sm text-muted-foreground hover:text-foreground">
+            <a href="https://admin.vrixora.com" onClick={() => setOpen(false)} className="py-2 text-sm text-muted-foreground hover:text-foreground">
               Área admin
-            </Link>
+            </a>
           </div>
         </div>
       )}
