@@ -17,8 +17,9 @@ import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PrivacidadIndexRouteImport } from './routes/privacidad.index'
-import { Route as PrivacidadTuktukRouteImport } from './routes/privacidad.tuktuk'
+import { Route as PrivacidadIndexRouteImport } from './routes/privacidad/index'
+import { Route as PrivacidadVrixoraRouteImport } from './routes/privacidad/vrixora'
+import { Route as PrivacidadTuktukRouteImport } from './routes/privacidad/tuktuk'
 
 const TuktukRoute = TuktukRouteImport.update({
   id: '/tuktuk',
@@ -65,6 +66,11 @@ const PrivacidadIndexRoute = PrivacidadIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PrivacidadRoute,
 } as any)
+const PrivacidadVrixoraRoute = PrivacidadVrixoraRouteImport.update({
+  id: '/vrixora',
+  path: '/vrixora',
+  getParentRoute: () => PrivacidadRoute,
+} as any)
 const PrivacidadTuktukRoute = PrivacidadTuktukRouteImport.update({
   id: '/tuktuk',
   path: '/tuktuk',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/privacidad/': typeof PrivacidadIndexRoute
 }
 export interface FileRoutesByTo {
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/privacidad': typeof PrivacidadIndexRoute
 }
 export interface FileRoutesById {
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/soporte': typeof SoporteRoute
   '/tuktuk': typeof TuktukRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/privacidad/': typeof PrivacidadIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/tuktuk'
     | '/privacidad/tuktuk'
+    | '/privacidad/vrixora'
     | '/privacidad/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/tuktuk'
     | '/privacidad/tuktuk'
+    | '/privacidad/vrixora'
     | '/privacidad'
   id:
     | '__root__'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/tuktuk'
     | '/privacidad/tuktuk'
+    | '/privacidad/vrixora'
     | '/privacidad/'
   fileRoutesById: FileRoutesById
 }
@@ -221,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacidadIndexRouteImport
       parentRoute: typeof PrivacidadRoute
     }
+    '/privacidad/vrixora': {
+      id: '/privacidad/vrixora'
+      path: '/vrixora'
+      fullPath: '/privacidad/vrixora'
+      preLoaderRoute: typeof PrivacidadVrixoraRouteImport
+      parentRoute: typeof PrivacidadRoute
+    }
     '/privacidad/tuktuk': {
       id: '/privacidad/tuktuk'
       path: '/tuktuk'
@@ -233,11 +252,13 @@ declare module '@tanstack/react-router' {
 
 interface PrivacidadRouteChildren {
   PrivacidadTuktukRoute: typeof PrivacidadTuktukRoute
+  PrivacidadVrixoraRoute: typeof PrivacidadVrixoraRoute
   PrivacidadIndexRoute: typeof PrivacidadIndexRoute
 }
 
 const PrivacidadRouteChildren: PrivacidadRouteChildren = {
   PrivacidadTuktukRoute: PrivacidadTuktukRoute,
+  PrivacidadVrixoraRoute: PrivacidadVrixoraRoute,
   PrivacidadIndexRoute: PrivacidadIndexRoute,
 }
 

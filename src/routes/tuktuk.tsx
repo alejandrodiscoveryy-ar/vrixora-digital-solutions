@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import tuktukIcon from "../assets/tuktuk-icon.png";
+import tuktukIcon from "../assets/tuktuk-icon.png.asset.json";
+import tuktukBanner from "../assets/tuktuk-banner.png.asset.json";
 
 export const Route = createFileRoute("/tuktuk")({
   head: () => ({
@@ -29,14 +30,25 @@ const features = [
 function TukTukPage() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
+      {/* Brand banner */}
+      <section className="mx-auto max-w-6xl px-6 pt-10">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-black">
+          <img
+            src={tuktukBanner.url}
+            alt="TukTuk — Controla tu vehículo"
+            className="w-full object-cover"
+          />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pt-12 pb-16 md:pt-16">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#00C99B]/10 px-3 py-1 text-xs font-medium text-[#00C99B]">
               Nuestro primer producto · Próximamente en Google Play
             </span>
             <h1 className="mt-6 text-4xl font-bold md:text-5xl">
-              <span className="text-gradient">TukTuk</span> — el control total de tu vehículo.
+              <span style={{ color: "#00C99B" }}>TukTuk</span> — el control total de tu vehículo.
             </h1>
             <p className="mt-4 text-sm text-muted-foreground">
               Un producto de <Link to="/soluciones" className="text-primary underline">Vrixora</Link>.
@@ -46,7 +58,7 @@ function TukTukPage() {
               kilometraje, cargas y mantenimientos en un solo lugar. Simple, rápida y offline.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <span className="rounded-lg bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+              <span className="rounded-lg bg-[#00C99B]/10 px-4 py-2 text-sm font-medium text-[#00C99B]">
                 🚀 Próximamente en Google Play
               </span>
               <Link to="/soporte" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground">
@@ -61,7 +73,7 @@ function TukTukPage() {
           {/* App icon */}
           <div className="relative mx-auto flex justify-center">
             <div className="relative">
-              <div className="absolute -inset-10 rounded-full bg-[var(--brand)]/10 blur-3xl" />
+              <div className="absolute -inset-10 rounded-full bg-[#00C99B]/20 blur-3xl" />
               <img
                 src={tuktukIcon.url}
                 alt="Icono de la app TukTuk"
