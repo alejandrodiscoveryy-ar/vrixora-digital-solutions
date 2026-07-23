@@ -142,12 +142,12 @@ function Nav() {
           ))}
         </nav>
         <div className="hidden md:block">
-          <Link
-            to="/admin"
+          <a
+            href="https://admin.vrixora.com"
             className="rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground"
           >
             Área admin
-          </Link>
+          </a>
         </div>
         <button
           className="rounded-md border border-border p-2 md:hidden"
@@ -167,9 +167,9 @@ function Nav() {
                 {l.label}
               </Link>
             ))}
-            <Link to="/admin" onClick={() => setOpen(false)} className="py-2 text-sm text-muted-foreground hover:text-foreground">
+            <a href="https://admin.vrixora.com" onClick={() => setOpen(false)} className="py-2 text-sm text-muted-foreground hover:text-foreground">
               Área admin
-            </Link>
+            </a>
           </div>
         </div>
       )}
