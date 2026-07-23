@@ -85,17 +85,18 @@ function TukTukPage() {
       </section>
 
 
-      <section className="mx-auto max-w-6xl px-6 pb-20">
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
         <h2 className="text-2xl font-bold md:text-3xl">Todo lo que necesitas</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
-            <div key={f.t} className="glass rounded-xl p-5 shadow-[var(--shadow-card)]">
+            <div key={f.t} className="glass rounded-xl p-4 shadow-[var(--shadow-card)] sm:p-5">
               <h3 className="font-semibold">{f.t}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{f.d}</p>
             </div>
           ))}
         </div>
       </section>
+
     </div>
   );
 }
