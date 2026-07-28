@@ -2,6 +2,22 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Vrixora Solutions | TukTuk Control" },
+      {
+        name: "description",
+        content:
+          "Vrixora Solutions desarrolla aplicaciones inteligentes para negocios. TukTuk Control permite gestionar ingresos, gastos, kilometraje, batería, mantenimiento y licencias de triciclos eléctricos.",
+      },
+      { property: "og:title", content: "Vrixora Solutions | TukTuk Control" },
+      {
+        property: "og:description",
+        content:
+          "Vrixora Solutions desarrolla aplicaciones inteligentes para negocios. TukTuk Control permite gestionar ingresos, gastos, kilometraje, batería, mantenimiento y licencias de triciclos eléctricos.",
+      },
+    ],
+  }),
 });
 
 const aboutCards = [
