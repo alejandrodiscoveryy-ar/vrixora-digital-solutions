@@ -2,6 +2,22 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Vrixora Solutions | TukTuk Control" },
+      {
+        name: "description",
+        content:
+          "Vrixora Solutions desarrolla aplicaciones inteligentes para negocios. TukTuk Control permite gestionar ingresos, gastos, kilometraje, batería, mantenimiento y licencias de triciclos eléctricos.",
+      },
+      { property: "og:title", content: "Vrixora Solutions | TukTuk Control" },
+      {
+        property: "og:description",
+        content:
+          "Vrixora Solutions desarrolla aplicaciones inteligentes para negocios. TukTuk Control permite gestionar ingresos, gastos, kilometraje, batería, mantenimiento y licencias de triciclos eléctricos.",
+      },
+    ],
+  }),
 });
 
 const aboutCards = [
@@ -96,6 +112,46 @@ function Index() {
               <p className="mt-3 text-sm leading-relaxed text-white/85">{c.d}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* TukTuk Control */}
+      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <div className="glass diagonal-cut relative overflow-hidden rounded-xl p-8 shadow-[var(--shadow-card)] md:p-12">
+          <div
+            aria-hidden
+            className="absolute top-0 left-0 h-1 w-24"
+            style={{ background: "var(--gradient-brand)" }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-16 -right-16 h-56 w-56 opacity-20 blur-2xl"
+            style={{
+              background: "var(--gradient-brand)",
+              clipPath: "polygon(0 0, 100% 0, 100% 100%)",
+            }}
+          />
+          <div className="relative max-w-3xl">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
+              <span className="h-px w-8 bg-primary" />
+              Nuestro producto
+            </span>
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">TukTuk Control</h2>
+            <p className="mt-4 text-base leading-relaxed text-white/85 md:text-lg">
+              TukTuk Control es una aplicación desarrollada por Vrixora Solutions para ayudar a
+              propietarios y conductores de triciclos eléctricos a gestionar sus ingresos, gastos,
+              kilometraje, voltaje de batería, mantenimientos, licencias y estadísticas desde un
+              solo lugar.
+            </p>
+            <div className="mt-8">
+              <Link
+                to="/tuktuk"
+                className="diagonal-cut rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5"
+              >
+                Conocer TukTuk Control →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>
