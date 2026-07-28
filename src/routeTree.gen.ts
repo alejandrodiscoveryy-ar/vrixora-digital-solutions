@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TuktukRouteImport } from './routes/tuktuk'
+import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as SoporteRouteImport } from './routes/soporte'
 import { Route as SolucionesRouteImport } from './routes/soluciones'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -24,6 +25,11 @@ import { Route as PrivacidadTuktukRouteImport } from './routes/privacidad/tuktuk
 const TuktukRoute = TuktukRouteImport.update({
   id: '/tuktuk',
   path: '/tuktuk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TerminosRoute = TerminosRouteImport.update({
+  id: '/terminos',
+  path: '/terminos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SoporteRoute = SoporteRouteImport.update({
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
+  '/terminos': typeof TerminosRoute
   '/tuktuk': typeof TuktukRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
+  '/terminos': typeof TerminosRoute
   '/tuktuk': typeof TuktukRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
+  '/terminos': typeof TerminosRoute
   '/tuktuk': typeof TuktukRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/soluciones'
     | '/soporte'
+    | '/terminos'
     | '/tuktuk'
     | '/privacidad/tuktuk'
     | '/privacidad/vrixora'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/soluciones'
     | '/soporte'
+    | '/terminos'
     | '/tuktuk'
     | '/privacidad/tuktuk'
     | '/privacidad/vrixora'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/soluciones'
     | '/soporte'
+    | '/terminos'
     | '/tuktuk'
     | '/privacidad/tuktuk'
     | '/privacidad/vrixora'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolucionesRoute: typeof SolucionesRoute
   SoporteRoute: typeof SoporteRoute
+  TerminosRoute: typeof TerminosRoute
   TuktukRoute: typeof TuktukRoute
 }
 
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/tuktuk'
       fullPath: '/tuktuk'
       preLoaderRoute: typeof TuktukRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terminos': {
+      id: '/terminos'
+      path: '/terminos'
+      fullPath: '/terminos'
+      preLoaderRoute: typeof TerminosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/soporte': {
@@ -274,18 +294,9 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolucionesRoute: SolucionesRoute,
   SoporteRoute: SoporteRoute,
+  TerminosRoute: TerminosRoute,
   TuktukRoute: TuktukRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
