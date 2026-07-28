@@ -196,6 +196,7 @@ function Footer() {
           <Link to="/servicios" className="hover:text-foreground">Servicios</Link>
           <Link to="/soporte" className="hover:text-foreground">Soporte</Link>
           <Link to="/privacidad" className="hover:text-foreground">Privacidad</Link>
+          <Link to="/terminos" className="hover:text-foreground">Términos y condiciones</Link>
           <Link to="/admin" className="hover:text-foreground">Admin</Link>
         </div>
       </div>
