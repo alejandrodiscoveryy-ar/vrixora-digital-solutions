@@ -29,7 +29,7 @@ function PrivacidadTuktukPage() {
         <section>
           <h2 className="text-2xl font-bold">1. Datos offline</h2>
           <p className="mt-3 text-muted-foreground">
-            TukTuk funciona completamente offline. Todos tus datos (ingresos, gastos, kilometraje, combustible,
+            TukTuk Control funciona completamente offline. Todos tus datos (ingresos, gastos, kilometraje, voltaje de batería,
             mantenimientos) se guardan únicamente en tu dispositivo. No enviamos tu información a servidores externos.
           </p>
         </section>
