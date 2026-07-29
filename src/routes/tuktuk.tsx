@@ -30,7 +30,7 @@ const features = [
   { t: "Registro de ingresos", d: "Registra cada ingreso de la jornada y visualiza tus resultados al instante." },
   { t: "Control de gastos", d: "Lleva el detalle de todos los gastos asociados al triciclo eléctrico." },
   { t: "Seguimiento del kilometraje", d: "Controla el recorrido diario y por periodo." },
-  { t: "Voltaje y batería", d: "Permite registrar el voltaje de la batería y consultar su comportamiento durante las jornadas de trabajo." },
+  { t: "Registro del voltaje de la batería", d: "Permite registrar el voltaje de la batería y consultar su comportamiento durante las jornadas de trabajo." },
   { t: "Gestión de mantenimientos", d: "Recordatorios y bitácora del historial de servicios." },
   { t: "Historial y estadísticas", d: "Analiza tu actividad con gráficos claros." },
   { t: "Funcionamiento sin conexión", d: "Registra sin Internet: todo se guarda en tu dispositivo." },
@@ -68,7 +68,7 @@ function TukTukPage() {
 
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-[#00C99B]/10 px-3 py-1 text-xs font-medium text-[#00C99B]">
-              Nuestro primer producto · Próximamente en Google Play
+              TukTuk Control · Producto de Vrixora Solutions
             </span>
             <h1 className="mt-4 text-3xl font-bold sm:mt-6 sm:text-4xl md:text-5xl">
               <span style={{ color: "#00C99B" }}>TukTuk Control</span>
