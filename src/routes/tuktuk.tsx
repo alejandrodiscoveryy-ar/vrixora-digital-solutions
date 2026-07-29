@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import tuktukIcon from "../assets/tuktuk-icon.png.asset.json";
-import tuktukBanner from "../assets/tuktuk-banner.png.asset.json";
+import tuktukIcon from "../assets/tuktuk-icon.png";
+import tuktukBanner from "../assets/tuktuk-banner.png";
 
 export const Route = createFileRoute("/tuktuk")({
   head: () => ({
@@ -45,7 +45,7 @@ function TukTukPage() {
       <section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6 sm:pt-10">
         <div className="relative overflow-hidden rounded-xl border border-border bg-black sm:rounded-2xl">
           <img
-            src={tuktukBanner.url}
+            src={tuktukBanner}
             alt="TukTuk Control — gestión de triciclos eléctricos"
             className="w-full object-cover"
           />
@@ -59,7 +59,7 @@ function TukTukPage() {
             <div className="relative">
               <div className="absolute -inset-6 rounded-full bg-[#00C99B]/20 blur-3xl sm:-inset-10" />
               <img
-                src={tuktukIcon.url}
+                src={tuktukIcon}
                 alt="Icono de la aplicación TukTuk Control"
                 className="relative w-36 rounded-[1.5rem] shadow-[var(--shadow-glow)] sm:w-48 sm:rounded-[2rem] md:w-72"
               />
