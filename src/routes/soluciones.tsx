@@ -4,7 +4,7 @@ export const Route = createFileRoute("/soluciones")({
   head: () => ({
     meta: [
       { title: "Soluciones — Vrixora" },
-      { name: "description", content: "Productos y soluciones de Vrixora: TukTuk para conductores, plataforma para gimnasios y gestión para salones de belleza." },
+      { name: "description", content: "Productos y soluciones de Vrixora: TukTuk Control para triciclos eléctricos, plataforma para gimnasios y gestión para salones de belleza." },
       { property: "og:title", content: "Soluciones — Vrixora" },
       { property: "og:description", content: "Explora los productos que estamos construyendo en Vrixora." },
       { property: "og:url", content: "/soluciones" },
@@ -24,9 +24,9 @@ type Solution = {
 
 const solutions: Solution[] = [
   {
-    name: "TukTuk",
+    name: "TukTuk Control",
     tagline: "Nuestro primer producto",
-    description: "Control de ingresos, gastos, kilometraje, combustible y mantenimientos para conductores. Funciona offline.",
+    description: "Control de ingresos, gastos, kilometraje, voltaje de batería y mantenimientos para triciclos eléctricos. Funciona sin conexión.",
     status: "Disponible",
     to: "/tuktuk",
   },
