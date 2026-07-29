@@ -80,8 +80,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Vrixora — Soluciones digitales para negocios" },
       { name: "twitter:description", content: "Vrixora desarrolla soluciones digitales para negocios. Descubre TukTuk, la app para controlar ingresos, gastos, kilometraje y mantenimientos." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/710bfde1-bc32-4db5-afee-22c288443b41/id-preview-31a335fa--bb6c3216-425a-4183-83aa-17b6351d7269.lovable.app-1784461710297.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/710bfde1-bc32-4db5-afee-22c288443b41/id-preview-31a335fa--bb6c3216-425a-4183-83aa-17b6351d7269.lovable.app-1784461710297.png" },
+      { property: "og:image", content: "https://www.vrixora.com/vrixora-social.png" },
+      { name: "twitter:image", content: "https://www.vrixora.com/vrixora-social.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
