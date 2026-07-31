@@ -21,14 +21,16 @@ function AdminPage() {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/></svg>
         </div>
         <span className="inline-flex rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-          Próximamente
+          Interno
         </span>
         <h1 className="mt-4 text-3xl font-bold">Área administrativa</h1>
         <p className="mt-3 text-muted-foreground">
-          Este espacio estará reservado para la gestión interna de Vrixora. En breve habilitaremos
-          el acceso.
+          Gestiona herramientas internas de Vrixora desde este panel.
         </p>
-        <div className="mt-8">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link to="/admin/blog" className="rounded-lg border border-border px-5 py-2.5 text-sm font-semibold hover:bg-accent hover:text-accent-foreground">
+            Administrar blog
+          </Link>
           <Link to="/" className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90">
             Volver al inicio
           </Link>

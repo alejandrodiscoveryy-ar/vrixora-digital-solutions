@@ -19,11 +19,13 @@ import { Route as SolucionesRouteImport } from './routes/soluciones'
 import { Route as SoporteRouteImport } from './routes/soporte'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as TuktukRouteImport } from './routes/tuktuk'
+import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as PrivacidadIndexRouteImport } from './routes/privacidad/index'
 import { Route as PrivacidadTuktukRouteImport } from './routes/privacidad/tuktuk'
 import { Route as PrivacidadVrixoraRouteImport } from './routes/privacidad/vrixora'
+import { Route as AdminBlogAuthRouteImport } from './routes/admin.blog.auth'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -75,6 +77,11 @@ const TuktukRoute = TuktukRouteImport.update({
   path: '/tuktuk',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminBlogRoute = AdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AdminRoute,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -100,10 +107,15 @@ const PrivacidadVrixoraRoute = PrivacidadVrixoraRouteImport.update({
   path: '/vrixora',
   getParentRoute: () => PrivacidadRoute,
 } as any)
+const AdminBlogAuthRoute = AdminBlogAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => AdminBlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/privacidad': typeof PrivacidadRouteWithChildren
   '/servicios': typeof ServiciosRoute
@@ -112,31 +124,35 @@ export interface FileRoutesByFullPath {
   '/soporte': typeof SoporteRoute
   '/terminos': typeof TerminosRoute
   '/tuktuk': typeof TuktukRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/blog/': typeof BlogIndexRoute
   '/privacidad/': typeof PrivacidadIndexRoute
+  '/admin/blog/auth': typeof AdminBlogAuthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soluciones': typeof SolucionesRoute
   '/soporte': typeof SoporteRoute
   '/terminos': typeof TerminosRoute
   '/tuktuk': typeof TuktukRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/blog': typeof BlogIndexRoute
   '/privacidad': typeof PrivacidadIndexRoute
+  '/admin/blog/auth': typeof AdminBlogAuthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/privacidad': typeof PrivacidadRouteWithChildren
   '/servicios': typeof ServiciosRoute
@@ -145,11 +161,13 @@ export interface FileRoutesById {
   '/soporte': typeof SoporteRoute
   '/terminos': typeof TerminosRoute
   '/tuktuk': typeof TuktukRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/blog/': typeof BlogIndexRoute
   '/privacidad/': typeof PrivacidadIndexRoute
+  '/admin/blog/auth': typeof AdminBlogAuthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -164,11 +182,13 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/terminos'
     | '/tuktuk'
+    | '/admin/blog'
     | '/blog/$slug'
     | '/privacidad/tuktuk'
     | '/privacidad/vrixora'
     | '/blog/'
     | '/privacidad/'
+    | '/admin/blog/auth'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -179,11 +199,13 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/terminos'
     | '/tuktuk'
+    | '/admin/blog'
     | '/blog/$slug'
     | '/privacidad/tuktuk'
     | '/privacidad/vrixora'
     | '/blog'
     | '/privacidad'
+    | '/admin/blog/auth'
   id:
     | '__root__'
     | '/'
@@ -196,16 +218,18 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/terminos'
     | '/tuktuk'
+    | '/admin/blog'
     | '/blog/$slug'
     | '/privacidad/tuktuk'
     | '/privacidad/vrixora'
     | '/blog/'
     | '/privacidad/'
+    | '/admin/blog/auth'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   PrivacidadRoute: typeof PrivacidadRouteWithChildren
   ServiciosRoute: typeof ServiciosRoute
@@ -288,6 +312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TuktukRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/blog': {
+      id: '/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminBlogRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/blog/': {
       id: '/blog/'
       path: '/'
@@ -323,8 +354,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacidadVrixoraRouteImport
       parentRoute: typeof PrivacidadRoute
     }
+    '/admin/blog/auth': {
+      id: '/admin/blog/auth'
+      path: '/auth'
+      fullPath: '/admin/blog/auth'
+      preLoaderRoute: typeof AdminBlogAuthRouteImport
+      parentRoute: typeof AdminBlogRoute
+    }
   }
 }
+
+interface AdminBlogRouteChildren {
+  AdminBlogAuthRoute: typeof AdminBlogAuthRoute
+}
+
+const AdminBlogRouteChildren: AdminBlogRouteChildren = {
+  AdminBlogAuthRoute: AdminBlogAuthRoute,
+}
+
+const AdminBlogRouteWithChildren = AdminBlogRoute._addFileChildren(
+  AdminBlogRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminBlogRoute: typeof AdminBlogRouteWithChildren
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBlogRoute: AdminBlogRouteWithChildren,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
@@ -356,7 +416,7 @@ const PrivacidadRouteWithChildren = PrivacidadRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   PrivacidadRoute: PrivacidadRouteWithChildren,
   ServiciosRoute: ServiciosRoute,
