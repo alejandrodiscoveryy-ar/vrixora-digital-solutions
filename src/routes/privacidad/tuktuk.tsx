@@ -27,53 +27,29 @@ function PrivacidadTuktukPage() {
 
       <div className="mt-12 space-y-8 text-base leading-relaxed">
         <section>
-          <h2 className="text-2xl font-bold">1. Datos offline</h2>
+          <h2 className="text-2xl font-bold">1. Datos y sincronización</h2>
           <p className="mt-3 text-muted-foreground">
-            TukTuk Control funciona completamente offline. Todos tus datos (ingresos, gastos, kilometraje, voltaje de batería,
-            mantenimientos) se guardan únicamente en tu dispositivo. No enviamos tu información a servidores externos.
+            TukTuk Control guarda inicialmente los registros en el dispositivo para permitir su funcionamiento sin conexión.
+            Cuando el usuario inicia sesión y utiliza la sincronización, los datos operativos pueden almacenarse de forma segura
+            en los servidores utilizados por Vrixora Solutions para permitir el respaldo, la recuperación y la sincronización
+            entre dispositivos.
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold">2. Respaldos</h2>
+          <h2 className="text-2xl font-bold">2. Inicio de sesión con Google</h2>
           <p className="mt-3 text-muted-foreground">
-            Puedes exportar e importar tus datos manualmente en cualquier momento. Cuando exportas, el archivo se
-            genera en tu dispositivo bajo tu control total.
+            Al iniciar sesión con Google, la aplicación utiliza los datos básicos de la cuenta proporcionados durante la autenticación,
+            como el identificador de usuario, correo electrónico, nombre y foto de perfil, cuando estén disponibles. Estos datos se
+            utilizan únicamente para autenticar al usuario y vincular su información con su cuenta.
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold">3. Privacidad</h2>
+          <h2 className="text-2xl font-bold">3. Privacidad y contacto</h2>
           <p className="mt-3 text-muted-foreground">
-            Tus datos financieros y operacionales permanecen privados. TukTuk no recopila, comparte ni vende
-            información sobre tus movimientos, ingresos o gastos a terceros.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold">4. Actualizaciones de la aplicación</h2>
-          <p className="mt-3 text-muted-foreground">
-            Cuando actualizas TukTuk, tus datos persisten en el dispositivo. Realizamos copias de respaldo
-            automáticas locales para evitar pérdida de información durante actualizaciones.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold">5. Permisos del dispositivo</h2>
-          <p className="mt-3 text-muted-foreground">
-            TukTuk solicita permisos específicos (almacenamiento, ubicación en ciertos contextos) únicamente para
-            funcionalidades necesarias. No utilizamos permisos de manera innecesaria.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold">6. Contacto</h2>
-          <p className="mt-3 text-muted-foreground">
-            Para preguntas sobre privacidad en TukTuk, contáctanos a{" "}
-            <a href="mailto:tuktuk@vrixora.com" className="text-primary hover:underline">
-              tuktuk@vrixora.com
-            </a>
-            .
+            Los datos no se venden ni se utilizan con fines publicitarios. El usuario puede solicitar información, corrección o
+            eliminación de sus datos mediante los canales de contacto publicados por Vrixora Solutions.
           </p>
         </section>
       </div>
