@@ -116,6 +116,7 @@ function Nav() {
   const links = [
     { to: "/", label: "Inicio" },
     { to: "/soluciones", label: "Soluciones" },
+    { to: "/blog", label: "Blog" },
     { to: "/servicios", label: "Servicios" },
     { to: "/soporte", label: "Soporte" },
     { to: "/privacidad", label: "Privacidad" },
@@ -192,6 +193,7 @@ function Footer() {
         </div>
         <div className="flex flex-wrap gap-6 text-xs text-muted-foreground">
           <Link to="/soluciones" className="hover:text-foreground">Soluciones</Link>
+          <Link to="/blog" className="hover:text-foreground">Blog</Link>
           <Link to="/tuktuk" className="hover:text-foreground">TukTuk</Link>
           <Link to="/servicios" className="hover:text-foreground">Servicios</Link>
           <Link to="/soporte" className="hover:text-foreground">Soporte</Link>

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { blogPosts } from "../data/blog-posts";
 
 const BASE_URL = "";
 
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/soluciones", changefreq: "weekly", priority: "0.9" },
+          { path: "/blog", changefreq: "weekly", priority: "0.8" },
           { path: "/tuktuk", changefreq: "weekly", priority: "0.9" },
           { path: "/servicios", changefreq: "monthly", priority: "0.8" },
           { path: "/soporte", changefreq: "monthly", priority: "0.6" },
@@ -18,7 +20,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/privacidad/vrixora", changefreq: "yearly", priority: "0.5" },
           { path: "/terminos", changefreq: "yearly", priority: "0.5" },
         ];
-        const urls = entries.map((e) =>
+        const blogEntries = blogPosts.map((post) => ({
+          path: `/blog/${post.slug}`,
+          changefreq: "monthly",
+          priority: "0.7",
+        }));
+        const allEntries = [...entries, ...blogEntries];
+        const urls = allEntries.map((e) =>
           `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`
         );
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>`;
