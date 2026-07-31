@@ -20,7 +20,7 @@ function PrivacidadTuktukPage() {
         ← Volver a políticas
       </Link>
 
-      <h1 className="mt-6 text-4xl font-bold">Política de privacidad — TukTuk</h1>
+      <h1 className="mt-6 text-4xl font-bold">Política de privacidad — TukTuk Control</h1>
       <p className="mt-4 text-sm text-muted-foreground">
         Última actualización: {new Date().getFullYear()}
       </p>

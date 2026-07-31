@@ -33,7 +33,7 @@ const features = [
   { t: "Registro del voltaje de la batería", d: "Permite registrar el voltaje de la batería y consultar su comportamiento durante las jornadas de trabajo." },
   { t: "Gestión de mantenimientos", d: "Recordatorios y bitácora del historial de servicios." },
   { t: "Historial y estadísticas", d: "Analiza tu actividad con gráficos claros." },
-  { t: "Funcionamiento sin conexión", d: "Registra sin Internet: todo se guarda en tu dispositivo." },
+  { t: "Funcionamiento sin conexión", d: "Registra sin Internet: los datos se guardan inicialmente en tu dispositivo y se sincronizan cuando recuperas la conexión." },
   { t: "Sincronización y copias de seguridad", d: "Sincroniza al recuperar conexión y exporta o importa tus datos cuando quieras." },
   { t: "Gestión de licencias", d: "Controla las licencias y su vigencia desde la propia aplicación." },
 ];
