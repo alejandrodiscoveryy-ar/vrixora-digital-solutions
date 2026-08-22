@@ -86,9 +86,15 @@ function TukTukPage() {
               conexión y sincronizar la información cuando vuelve a estar disponible Internet.
             </p>
             <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
-              <span className="rounded-lg bg-[#00C99B]/10 px-3 py-2 text-xs font-medium text-[#00C99B] sm:px-4 sm:text-sm">
-                🚀 Próximamente en Google Play
-              </span>
+              <a href="https://www.vrixora.com/tuktuk/app/" className="rounded-lg bg-[#00C99B] px-3 py-2 text-xs font-semibold text-black hover:opacity-90 sm:px-4 sm:text-sm">
+                Usar WebApp
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.alejandrocruz.tuktukcontrol" className="rounded-lg bg-[#00C99B]/10 px-3 py-2 text-xs font-medium text-[#00C99B] hover:bg-[#00C99B]/20 sm:px-4 sm:text-sm">
+                Descargar en Google Play
+              </a>
+              <a href="https://www.vrixora.com/tuktuk/app/" className="rounded-lg border border-border px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground sm:px-4 sm:text-sm">
+                Instalar WebApp
+              </a>
               <Link to="/soporte" className="rounded-lg border border-border px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground sm:px-4 sm:text-sm">
                 Preguntas y soporte
               </Link>
