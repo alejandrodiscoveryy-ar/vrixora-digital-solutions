@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import tuktukIcon from "../assets/tuktuk-icon.png";
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+}
 
 export const Route = createFileRoute("/tuktuk")({
   head: () => ({
@@ -19,8 +25,12 @@ export const Route = createFileRoute("/tuktuk")({
       { property: "og:type", content: "product" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://www.vrixora.com/tuktuk" },
+      { name: "theme-color", content: "#00C99B" },
     ],
-    links: [{ rel: "canonical", href: "https://www.vrixora.com/tuktuk" }],
+    links: [
+      { rel: "canonical", href: "https://www.vrixora.com/tuktuk" },
+      { rel: "manifest", href: "/tuktuk/manifest.webmanifest" },
+    ],
   }),
   component: TukTukPage,
 });
@@ -38,6 +48,40 @@ const features = [
 ];
 
 function TukTukPage() {
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const standalone = window.matchMedia("(display-mode: standalone)").matches;
+    setIsInstalled(standalone);
+
+    const handleBeforeInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+    const handleAppInstalled = () => {
+      setInstallPrompt(null);
+      setIsInstalled(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("appinstalled", handleAppInstalled);
+    };
+  }, []);
+
+  const handleInstall = async () => {
+    if (!installPrompt) {
+      window.location.assign("/tuktuk/app/");
+      return;
+    }
+    await installPrompt.prompt();
+    await installPrompt.userChoice;
+    setInstallPrompt(null);
+  };
+
   return (
     <div>
       <section className="mx-auto max-w-6xl px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16 md:pt-16">
@@ -80,9 +124,15 @@ function TukTukPage() {
               <a href="https://play.google.com/store/apps/details?id=com.alejandrocruz.tuktukcontrol" className="rounded-lg bg-[#00C99B]/10 px-3 py-2 text-xs font-medium text-[#00C99B] hover:bg-[#00C99B]/20 sm:px-4 sm:text-sm">
                 Descargar en Google Play
               </a>
-              <a href="https://www.vrixora.com/tuktuk/app/" className="rounded-lg border border-border px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground sm:px-4 sm:text-sm">
-                Instalar WebApp
-              </a>
+              {!isInstalled && (
+                <button
+                  type="button"
+                  onClick={handleInstall}
+                  className="rounded-lg border border-border px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground sm:px-4 sm:text-sm"
+                >
+                  Instalar WebApp
+                </button>
+              )}
               <Link to="/soporte" className="rounded-lg border border-border px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground sm:px-4 sm:text-sm">
                 Preguntas y soporte
               </Link>

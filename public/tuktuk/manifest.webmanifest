@@ -1,0 +1,35 @@
+{
+  "id": "/tuktuk/app/",
+  "name": "TukTuk Control",
+  "short_name": "TukTuk",
+  "start_url": "/tuktuk/app/",
+  "scope": "/tuktuk/",
+  "display": "standalone",
+  "background_color": "#080D14",
+  "theme_color": "#00C99B",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/tuktuk/app/icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/tuktuk/app/icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/tuktuk/app/icons/Icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/tuktuk/app/icons/Icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
