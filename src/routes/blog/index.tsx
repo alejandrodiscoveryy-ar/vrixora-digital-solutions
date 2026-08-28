@@ -27,7 +27,7 @@ export const Route = createFileRoute("/blog/")({
       { property: "og:url", content: "https://www.vrixora.com/blog" },
       {
         property: "og:image",
-        content: "https://www.vrixora.com/vrixora-social.png",
+        content: "https://www.vrixora.com/vrixora-logo.png",
       },
     ],
     links: [{ rel: "canonical", href: "https://www.vrixora.com/blog" }],

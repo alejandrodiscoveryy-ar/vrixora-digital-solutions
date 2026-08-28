@@ -84,7 +84,7 @@ function BlogArticlePage() {
       name: "Vrixora Solutions",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.vrixora.com/favicon.png",
+        url: "https://www.vrixora.com/vrixora-symbol.png",
       },
     },
     datePublished: post.publishedAt,

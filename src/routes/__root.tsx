@@ -11,7 +11,6 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import vrixoraIsotype from "../assets/vrixora-isotype.jpg";
 
 function NotFoundComponent() {
   return (
@@ -80,15 +79,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Vrixora — Soluciones digitales para negocios" },
       { name: "twitter:description", content: "Vrixora desarrolla soluciones digitales para negocios. Descubre TukTuk, la app para controlar ingresos, gastos, kilometraje y mantenimientos." },
-      { property: "og:image", content: "https://www.vrixora.com/vrixora-social.png" },
-      { name: "twitter:image", content: "https://www.vrixora.com/vrixora-social.png" },
+      { property: "og:image", content: "https://www.vrixora.com/vrixora-logo.png" },
+      { name: "twitter:image", content: "https://www.vrixora.com/vrixora-logo.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "icon", href: "/vrixora-symbol.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/vrixora-symbol.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -125,9 +125,8 @@ function Nav() {
   return (
     <header className="sticky top-0 z-50 glass">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
-          <img src={vrixoraIsotype} alt="Vrixora" className="h-8 w-8 rounded-md object-cover" />
-          <span>Vrixora</span>
+        <Link to="/" aria-label="VRIXORA Solutions — Inicio">
+          <img src="/vrixora-logo.png" alt="VRIXORA Solutions" className="h-8 w-auto max-w-[180px] object-contain" />
         </Link>
         <nav className="hidden gap-8 md:flex">
           {links.map((l) => (
@@ -183,10 +182,7 @@ function Footer() {
     <footer className="mt-24 border-t border-border">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 py-10 md:flex-row md:items-center">
         <div>
-          <div className="flex items-center gap-2 font-display font-bold">
-            <img src={vrixoraIsotype} alt="Vrixora" className="h-6 w-6 rounded object-cover" />
-            Vrixora
-          </div>
+          <img src="/vrixora-logo.png" alt="VRIXORA Solutions" className="h-8 w-auto max-w-[200px] object-contain" />
           <p className="mt-2 text-xs text-muted-foreground">
             © {new Date().getFullYear()} Vrixora. Soluciones digitales para negocios.
           </p>
