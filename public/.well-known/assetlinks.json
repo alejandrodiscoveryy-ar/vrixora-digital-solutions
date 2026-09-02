@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.alejandrocruz.tuktukcontrol",
+      "sha256_cert_fingerprints": [
+        "D6:5E:51:B2:F9:FA:31:C6:A8:A6:0D:08:3E:63:EE:43:90:2E:85:1F:6D:4B:7F:08:C4:DC:39:39:6C:DD:CC:27"
+      ]
+    }
+  }
+]
