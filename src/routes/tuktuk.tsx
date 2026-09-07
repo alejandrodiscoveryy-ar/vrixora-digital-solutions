@@ -75,35 +75,21 @@ const features = [
 
 function TukTukPage() {
   const [isInstalled, setIsInstalled] = useState(false);
-  const [isInstallReady, setIsInstallReady] = useState(false);
+  const [installNotice, setInstallNotice] = useState("");
 
   useEffect(() => {
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches;
 
     setIsInstalled(standalone);
-    setIsInstallReady(getPwaInstallPrompt() !== null);
-
-    const handleInstallReady = () => {
-      setIsInstallReady(true);
-    };
 
     const handleAppInstalled = () => {
       setIsInstalled(true);
-      setIsInstallReady(false);
     };
 
-    window.addEventListener(
-      "vrixora:pwa-install-ready",
-      handleInstallReady,
-    );
     window.addEventListener("appinstalled", handleAppInstalled);
 
     return () => {
-      window.removeEventListener(
-        "vrixora:pwa-install-ready",
-        handleInstallReady,
-      );
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
@@ -112,16 +98,22 @@ function TukTukPage() {
     const installPrompt = getPwaInstallPrompt();
 
     if (!installPrompt) {
-      setIsInstallReady(false);
+      setInstallNotice(
+        "Para instalar la WebApp, usa la opción de instalación del navegador.",
+      );
       return;
     }
 
     try {
+      setInstallNotice("");
       await installPrompt.prompt();
       await installPrompt.userChoice;
+    } catch {
+      setInstallNotice(
+        "No se pudo abrir el instalador. Usa la opción de instalación del navegador.",
+      );
     } finally {
       clearPwaInstallPrompt();
-      setIsInstallReady(false);
     }
   };
 
@@ -185,7 +177,7 @@ function TukTukPage() {
                 Descargar en Google Play
               </a>
 
-              {!isInstalled && isInstallReady && (
+              {!isInstalled && (
                 <button
                   type="button"
                   onClick={handleInstall}
@@ -216,6 +208,11 @@ function TukTukPage() {
                 Términos y condiciones
               </Link>
             </div>
+            {installNotice && (
+              <p role="status" className="mt-2 text-xs text-muted-foreground">
+                {installNotice}
+              </p>
+            )}
           </div>
         </div>
       </section>
