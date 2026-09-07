@@ -1,10 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import tuktukIcon from "../assets/tuktuk-icon.png";
-import {
-  clearPwaInstallPrompt,
-  getPwaInstallPrompt,
-} from "../lib/pwa-install";
 
 export const Route = createFileRoute("/tuktuk")({
   head: () => ({
@@ -74,47 +69,6 @@ const features = [
 ];
 
 function TukTukPage() {
-  const [isInstalled, setIsInstalled] = useState(false);
-
-  useEffect(() => {
-    const standalone =
-      window.matchMedia("(display-mode: standalone)").matches;
-
-    setIsInstalled(standalone);
-
-    const handleAppInstalled = () => {
-      setIsInstalled(true);
-    };
-
-    window.addEventListener("appinstalled", handleAppInstalled);
-
-    return () => {
-      window.removeEventListener("appinstalled", handleAppInstalled);
-    };
-  }, []);
-
-  const handleInstall = async () => {
-    const installPrompt = getPwaInstallPrompt();
-
-    if (!installPrompt) {
-      window.alert(
-        "Para instalar TukTuk Control, usa la opción de instalación del navegador.",
-      );
-      return;
-    }
-
-    try {
-      await installPrompt.prompt();
-      await installPrompt.userChoice;
-    } catch {
-      window.alert(
-        "No se pudo abrir el instalador. Usa la opción de instalación del navegador.",
-      );
-    } finally {
-      clearPwaInstallPrompt();
-    }
-  };
-
   return (
     <div>
       <section className="mx-auto max-w-6xl px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16 md:pt-16">
@@ -174,16 +128,6 @@ function TukTukPage() {
               >
                 Descargar en Google Play
               </a>
-
-              {!isInstalled && (
-                <button
-                  type="button"
-                  onClick={handleInstall}
-                  className="rounded-lg border border-border px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground sm:px-4 sm:text-sm"
-                >
-                  Instalar WebApp
-                </button>
-              )}
 
               <Link
                 to="/soporte"
