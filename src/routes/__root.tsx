@@ -102,6 +102,27 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                if (window.__vrixoraPwaInstallInitialized) return;
+                window.__vrixoraPwaInstallInitialized = true;
+
+                window.addEventListener("beforeinstallprompt", function (event) {
+                  event.preventDefault();
+                  window.__vrixoraPwaInstallPrompt = event;
+                  window.dispatchEvent(new Event("vrixora:pwa-install-ready"));
+                });
+
+                window.addEventListener("appinstalled", function () {
+                  window.__vrixoraPwaInstallPrompt = null;
+                  window.dispatchEvent(new Event("vrixora:pwa-install-state-change"));
+                });
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         {children}

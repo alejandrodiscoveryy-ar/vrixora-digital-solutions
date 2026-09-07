@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import tuktukIcon from "../assets/tuktuk-icon.png";
 import {
@@ -75,20 +75,35 @@ const features = [
 
 function TukTukPage() {
   const [isInstalled, setIsInstalled] = useState(false);
+  const [isInstallReady, setIsInstallReady] = useState(false);
 
   useEffect(() => {
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches;
 
     setIsInstalled(standalone);
+    setIsInstallReady(getPwaInstallPrompt() !== null);
+
+    const handleInstallReady = () => {
+      setIsInstallReady(true);
+    };
 
     const handleAppInstalled = () => {
       setIsInstalled(true);
+      setIsInstallReady(false);
     };
 
+    window.addEventListener(
+      "vrixora:pwa-install-ready",
+      handleInstallReady,
+    );
     window.addEventListener("appinstalled", handleAppInstalled);
 
     return () => {
+      window.removeEventListener(
+        "vrixora:pwa-install-ready",
+        handleInstallReady,
+      );
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
@@ -97,14 +112,17 @@ function TukTukPage() {
     const installPrompt = getPwaInstallPrompt();
 
     if (!installPrompt) {
-      window.location.assign("/tuktuk/app/");
+      setIsInstallReady(false);
       return;
     }
 
-    await installPrompt.prompt();
-    await installPrompt.userChoice;
-
-    clearPwaInstallPrompt();
+    try {
+      await installPrompt.prompt();
+      await installPrompt.userChoice;
+    } finally {
+      clearPwaInstallPrompt();
+      setIsInstallReady(false);
+    }
   };
 
   return (
@@ -167,7 +185,7 @@ function TukTukPage() {
                 Descargar en Google Play
               </a>
 
-              {!isInstalled && (
+              {!isInstalled && isInstallReady && (
                 <button
                   type="button"
                   onClick={handleInstall}
