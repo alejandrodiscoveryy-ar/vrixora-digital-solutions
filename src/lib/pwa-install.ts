@@ -9,29 +9,7 @@
 declare global {
   interface Window {
     __vrixoraPwaInstallPrompt?: BeforeInstallPromptEvent | null;
-    __vrixoraPwaInstallInitialized?: boolean;
   }
-}
-
-export function initializePwaInstallPrompt() {
-  if (
-    typeof window === "undefined" ||
-    window.__vrixoraPwaInstallInitialized
-  ) {
-    return;
-  }
-
-  window.__vrixoraPwaInstallInitialized = true;
-
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    window.__vrixoraPwaInstallPrompt =
-      event as BeforeInstallPromptEvent;
-  });
-
-  window.addEventListener("appinstalled", () => {
-    window.__vrixoraPwaInstallPrompt = null;
-  });
 }
 
 export function getPwaInstallPrompt() {
