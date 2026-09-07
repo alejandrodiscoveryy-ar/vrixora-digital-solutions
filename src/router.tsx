@@ -1,6 +1,11 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import { initializePwaInstallPrompt } from "./lib/pwa-install";
+
+if (typeof window !== "undefined") {
+  initializePwaInstallPrompt();
+}
 
 export const getRouter = () => {
   const queryClient = new QueryClient();
