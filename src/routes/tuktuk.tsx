@@ -75,7 +75,6 @@ const features = [
 
 function TukTukPage() {
   const [isInstalled, setIsInstalled] = useState(false);
-  const [installNotice, setInstallNotice] = useState("");
 
   useEffect(() => {
     const standalone =
@@ -98,18 +97,17 @@ function TukTukPage() {
     const installPrompt = getPwaInstallPrompt();
 
     if (!installPrompt) {
-      setInstallNotice(
-        "Para instalar la WebApp, usa la opción de instalación del navegador.",
+      window.alert(
+        "Para instalar TukTuk Control, usa la opción de instalación del navegador.",
       );
       return;
     }
 
     try {
-      setInstallNotice("");
       await installPrompt.prompt();
       await installPrompt.userChoice;
     } catch {
-      setInstallNotice(
+      window.alert(
         "No se pudo abrir el instalador. Usa la opción de instalación del navegador.",
       );
     } finally {
@@ -208,11 +206,6 @@ function TukTukPage() {
                 Términos y condiciones
               </Link>
             </div>
-            {installNotice && (
-              <p role="status" className="mt-2 text-xs text-muted-foreground">
-                {installNotice}
-              </p>
-            )}
           </div>
         </div>
       </section>
