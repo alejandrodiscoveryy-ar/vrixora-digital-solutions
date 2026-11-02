@@ -23,7 +23,9 @@ import { Route as PrivacidadIndexRouteImport } from './routes/privacidad/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as RefCodeRouteImport } from './routes/ref/$code'
 import { Route as PrivacidadVrixoraRouteImport } from './routes/privacidad/vrixora'
+import { Route as PrivacidadTuktukClienteRouteImport } from './routes/privacidad/tuktuk-cliente'
 import { Route as PrivacidadTuktukRouteImport } from './routes/privacidad/tuktuk'
+import { Route as PrivacidadEliminacionDatosRouteImport } from './routes/privacidad/eliminacion-datos'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as AdminBlogAuthRouteImport } from './routes/admin.blog.auth'
@@ -98,11 +100,22 @@ const PrivacidadVrixoraRoute = PrivacidadVrixoraRouteImport.update({
   path: '/vrixora',
   getParentRoute: () => PrivacidadRoute,
 } as any)
+const PrivacidadTuktukClienteRoute = PrivacidadTuktukClienteRouteImport.update({
+  id: '/tuktuk-cliente',
+  path: '/tuktuk-cliente',
+  getParentRoute: () => PrivacidadRoute,
+} as any)
 const PrivacidadTuktukRoute = PrivacidadTuktukRouteImport.update({
   id: '/tuktuk',
   path: '/tuktuk',
   getParentRoute: () => PrivacidadRoute,
 } as any)
+const PrivacidadEliminacionDatosRoute =
+  PrivacidadEliminacionDatosRouteImport.update({
+    id: '/eliminacion-datos',
+    path: '/eliminacion-datos',
+    getParentRoute: () => PrivacidadRoute,
+  } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -132,7 +145,9 @@ export interface FileRoutesByFullPath {
   '/tuktuk': typeof TuktukRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/privacidad/eliminacion-datos': typeof PrivacidadEliminacionDatosRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/tuktuk-cliente': typeof PrivacidadTuktukClienteRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/ref/$code': typeof RefCodeRoute
   '/blog/': typeof BlogIndexRoute
@@ -150,7 +165,9 @@ export interface FileRoutesByTo {
   '/tuktuk': typeof TuktukRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/privacidad/eliminacion-datos': typeof PrivacidadEliminacionDatosRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/tuktuk-cliente': typeof PrivacidadTuktukClienteRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/ref/$code': typeof RefCodeRoute
   '/blog': typeof BlogIndexRoute
@@ -171,7 +188,9 @@ export interface FileRoutesById {
   '/tuktuk': typeof TuktukRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/privacidad/eliminacion-datos': typeof PrivacidadEliminacionDatosRoute
   '/privacidad/tuktuk': typeof PrivacidadTuktukRoute
+  '/privacidad/tuktuk-cliente': typeof PrivacidadTuktukClienteRoute
   '/privacidad/vrixora': typeof PrivacidadVrixoraRoute
   '/ref/$code': typeof RefCodeRoute
   '/blog/': typeof BlogIndexRoute
@@ -193,7 +212,9 @@ export interface FileRouteTypes {
     | '/tuktuk'
     | '/admin/blog'
     | '/blog/$slug'
+    | '/privacidad/eliminacion-datos'
     | '/privacidad/tuktuk'
+    | '/privacidad/tuktuk-cliente'
     | '/privacidad/vrixora'
     | '/ref/$code'
     | '/blog/'
@@ -211,7 +232,9 @@ export interface FileRouteTypes {
     | '/tuktuk'
     | '/admin/blog'
     | '/blog/$slug'
+    | '/privacidad/eliminacion-datos'
     | '/privacidad/tuktuk'
+    | '/privacidad/tuktuk-cliente'
     | '/privacidad/vrixora'
     | '/ref/$code'
     | '/blog'
@@ -231,7 +254,9 @@ export interface FileRouteTypes {
     | '/tuktuk'
     | '/admin/blog'
     | '/blog/$slug'
+    | '/privacidad/eliminacion-datos'
     | '/privacidad/tuktuk'
+    | '/privacidad/tuktuk-cliente'
     | '/privacidad/vrixora'
     | '/ref/$code'
     | '/blog/'
@@ -353,11 +378,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacidadVrixoraRouteImport
       parentRoute: typeof PrivacidadRoute
     }
+    '/privacidad/tuktuk-cliente': {
+      id: '/privacidad/tuktuk-cliente'
+      path: '/tuktuk-cliente'
+      fullPath: '/privacidad/tuktuk-cliente'
+      preLoaderRoute: typeof PrivacidadTuktukClienteRouteImport
+      parentRoute: typeof PrivacidadRoute
+    }
     '/privacidad/tuktuk': {
       id: '/privacidad/tuktuk'
       path: '/tuktuk'
       fullPath: '/privacidad/tuktuk'
       preLoaderRoute: typeof PrivacidadTuktukRouteImport
+      parentRoute: typeof PrivacidadRoute
+    }
+    '/privacidad/eliminacion-datos': {
+      id: '/privacidad/eliminacion-datos'
+      path: '/eliminacion-datos'
+      fullPath: '/privacidad/eliminacion-datos'
+      preLoaderRoute: typeof PrivacidadEliminacionDatosRouteImport
       parentRoute: typeof PrivacidadRoute
     }
     '/blog/$slug': {
@@ -419,13 +458,17 @@ const BlogRouteChildren: BlogRouteChildren = {
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface PrivacidadRouteChildren {
+  PrivacidadEliminacionDatosRoute: typeof PrivacidadEliminacionDatosRoute
   PrivacidadTuktukRoute: typeof PrivacidadTuktukRoute
+  PrivacidadTuktukClienteRoute: typeof PrivacidadTuktukClienteRoute
   PrivacidadVrixoraRoute: typeof PrivacidadVrixoraRoute
   PrivacidadIndexRoute: typeof PrivacidadIndexRoute
 }
 
 const PrivacidadRouteChildren: PrivacidadRouteChildren = {
+  PrivacidadEliminacionDatosRoute: PrivacidadEliminacionDatosRoute,
   PrivacidadTuktukRoute: PrivacidadTuktukRoute,
+  PrivacidadTuktukClienteRoute: PrivacidadTuktukClienteRoute,
   PrivacidadVrixoraRoute: PrivacidadVrixoraRoute,
   PrivacidadIndexRoute: PrivacidadIndexRoute,
 }
