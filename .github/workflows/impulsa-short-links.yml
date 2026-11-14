@@ -16,3 +16,8 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
       - name: Run isolated short link tests
         run: node --experimental-strip-types --test tests/impulsa-short-link.test.ts
+      - name: Verify deployed read-only Impulsa preview service
+        run: |
+          curl --fail --silent --show-error --retry 2 --max-time 30 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-impulsa-social?alias=gerson&format=meta' -o /tmp/impulsa-meta.json
+          curl --fail --silent --show-error --retry 2 --max-time 45 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-impulsa-social?alias=gerson&format=image' -o /tmp/impulsa-preview.png
+          node --input-type=module -e 'import fs from "node:fs"; import assert from "node:assert/strict"; const p=JSON.parse(fs.readFileSync("/tmp/impulsa-meta.json","utf8")).data; assert.equal(p.name,"Gerson"); assert.equal(p.category,"Triciclo"); assert.deepEqual(Object.keys(p).sort(),["category","name","services"]); const b=fs.readFileSync("/tmp/impulsa-preview.png"); assert.equal(b.subarray(0,8).toString("hex"),"89504e470d0a1a0a"); assert.equal(b.readUInt32BE(16),1200); assert.equal(b.readUInt32BE(20),630); console.log("Live metadata and 1200x630 PNG verified");'
