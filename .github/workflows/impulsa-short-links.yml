@@ -1,0 +1,18 @@
+name: Impulsa short links
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/lib/impulsa-short-link.ts'
+      - 'src/server.ts'
+      - 'tests/impulsa-short-link.test.ts'
+      - '.github/workflows/impulsa-short-links.yml'
+permissions:
+  contents: read
+jobs:
+  short-link-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - name: Run isolated short link tests
+        run: node --experimental-strip-types --test tests/impulsa-short-link.test.ts
