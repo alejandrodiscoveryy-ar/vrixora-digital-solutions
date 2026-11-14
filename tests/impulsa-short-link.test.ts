@@ -3,12 +3,19 @@ import assert from "node:assert/strict";
 import vm from "node:vm";
 import { impulsaShortLinkResponse } from "../src/lib/impulsa-short-link.ts";
 
+const noSocial = async () => new Response(null,{status:503});
+const social = async (url: URL | RequestInfo) => {
+  const parsed = new URL(String(url));
+  assert.equal(parsed.hostname,"vvxvnywzgtqhlaqpxyqh.supabase.co");
+  assert.equal(parsed.searchParams.get("alias"),"gerson");
+  return new Response(JSON.stringify({data:{name:"Gerson",category:"Triciclo",services:["Carga","Pasajeros"]}}),{headers:{"Content-Type":"application/json"}});
+};
 test("only /tuk/name is handled", async () => {
-  assert.equal(impulsaShortLinkResponse(new Request("https://www.vrixora.com/ref/test")), null);
-  assert.equal(impulsaShortLinkResponse(new Request("https://www.vrixora.com/cliente/tuk/")), null);
-  assert.equal(impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/a/b"))?.status, 404);
-  assert.equal(impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson", {method:"POST"}))?.status, 405);
-  const response=impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/GERSON/"));
+  assert.equal(await impulsaShortLinkResponse(new Request("https://www.vrixora.com/ref/test"),noSocial), null);
+  assert.equal(await impulsaShortLinkResponse(new Request("https://www.vrixora.com/cliente/tuk/"),noSocial), null);
+  assert.equal((await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/a/b"),noSocial))?.status, 404);
+  assert.equal((await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson", {method:"POST"}),noSocial))?.status, 405);
+  const response=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/GERSON/"),social);
   assert.ok(response);
   assert.equal(response.status,200);
   assert.match(response.headers.get("cache-control") ?? "", /no-store/);
@@ -16,7 +23,7 @@ test("only /tuk/name is handled", async () => {
 });
 
 test("valid alias redirects only to the existing customer entry, errors do not lose the alias", async () => {
-  const response=impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"));
+  const response=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"),noSocial);
   assert.ok(response);
   const source=(await response.text()).match(/<script nonce="[^"]+">([\s\S]*?)<\/script>/)?.[1];
   assert.ok(source);
@@ -40,4 +47,46 @@ test("valid alias redirects only to the existing customer entry, errors do not l
       assert.equal(retry.hidden,false);
     }
   }
+});
+
+test("WhatsApp receives personalized Open Graph tags in HTML before JavaScript",async()=>{
+  const response=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"),social);
+  assert.ok(response);
+  const html=await response.text();
+  assert.match(html,/property="og:title" content="Viaja con Gerson \| Agencia TukTuk"/);
+  assert.match(html,/property="og:description" content="Triciclo · Carga · Pasajeros/);
+  assert.match(html,/property="og:image" content="https:\/\/www\.vrixora\.com\/tuk\/gerson\/preview\.png"/);
+  assert.match(html,/property="og:image:width" content="1200"/);
+  assert.match(html,/property="og:image:height" content="630"/);
+  assert.match(html,/property="og:url" content="https:\/\/www\.vrixora\.com\/tuk\/gerson"/);
+  const fallback=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"),noSocial);
+  assert.ok(fallback);
+  assert.doesNotMatch(await fallback.text(),/property="og:image"/);
+});
+test("untrusted names are escaped, not executable HTML",async()=>{
+  const mock=async()=>new Response(JSON.stringify({data:{name:'A"><script>alert(1)</script>',category:"Auto",services:[]}}));
+  const result=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"),mock);
+  assert.ok(result);
+  const html=await result.text();
+  assert.doesNotMatch(html,/<script>alert\(1\)<\/script>/);
+  assert.match(html,/A&quot;&gt;&lt;script&gt;/);
+});
+test("preview path serves only PNG, with HEAD and unavailable profile handling",async()=>{
+  const bytes=new Uint8Array([137,80,78,71,13,10,26,10]);
+  const mock=async(url:URL|RequestInfo,init?:RequestInit)=>{
+    const u=new URL(String(url));
+    assert.equal(u.searchParams.get("alias"),"gerson");
+    assert.equal(u.searchParams.get("format"),"image");
+    return new Response(init?.method==="HEAD"?null:bytes,{headers:{"Content-Type":"image/png"}});
+  };
+  const response=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png"),mock);
+  assert.ok(response);
+  assert.equal(response.headers.get("Content-Type"),"image/png");
+  assert.deepEqual(new Uint8Array(await response.arrayBuffer()),bytes);
+  const head=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png",{method:"HEAD"}),mock);
+  assert.equal(head?.body,null);
+  const absent=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png"),async()=>new Response(null,{status:404}));
+  assert.equal(absent?.status,404);
+  const wrong=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png"),async()=>new Response("not png"));
+  assert.equal(wrong?.status,503);
 });
