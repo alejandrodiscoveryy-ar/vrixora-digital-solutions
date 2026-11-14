@@ -48,7 +48,7 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
-      const impulsa = impulsaShortLinkResponse(request);
+      const impulsa = await impulsaShortLinkResponse(request);
       if (impulsa) return impulsa;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
