@@ -77,6 +77,15 @@ export async function impulsaShortLinkResponse(request: Request, requestFetch: t
         const target=new URL(${JSON.stringify(CUSTOMER)});
         target.searchParams.set("conductor",code);
         target.searchParams.set("mode","full");
+        // Preserve only explicit campaign tags through the short alias.
+        // Never forward arbitrary query parameters to the customer app.
+        const incoming=new URLSearchParams(typeof location.search==="string" ? location.search : "");
+        const channel=incoming.get("utm_source") || "";
+        if(/^(unknown|direct|whatsapp_private|whatsapp_groups|whatsapp_status|facebook|instagram|qr|other)$/.test(channel))
+          target.searchParams.set("utm_source",channel);
+        const campaign=incoming.get("utm_campaign") || "";
+        if(/^[a-z0-9_-]{1,32}$/.test(campaign))
+          target.searchParams.set("utm_campaign",campaign);
         location.replace(target.href);
         return;
       }

@@ -36,7 +36,7 @@ test("valid alias redirects only to the existing customer entry, errors do not l
         assert.equal(JSON.parse(String(opts.body)).params.target_alias,"gerson");
         return {ok:true,json:async()=>payload};
       },
-      URL,AbortController,setTimeout,clearTimeout,
+      URL,URLSearchParams,AbortController,setTimeout,clearTimeout,
       location:{replace(url:string){redirects.push(url);}},
     });
     await new Promise(resolve=>setImmediate(resolve));
@@ -89,4 +89,23 @@ test("preview path serves only PNG, with HEAD and unavailable profile handling",
   assert.equal(absent?.status,404);
   const wrong=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png"),async()=>new Response("not png"));
   assert.equal(wrong?.status,503);
+});
+
+
+test("Impulsa preserves safe communication tags across alias, strips untrusted query",async()=>{
+  const response=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson?utm_source=whatsapp_groups&utm_campaign=grupo-centro&admin=true"),noSocial);
+  assert.ok(response);
+  const script=(await response.text()).match(/<script nonce="[^"]+">([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(script);
+  const redirects:string[]=[];
+  const status={textContent:""},retry={hidden:true,addEventListener(){}};
+  vm.runInNewContext(script,{
+    document:{getElementById(id:string){return id==="status"?status:retry;}},
+    fetch:async()=>({ok:true,json:async()=>({data:{code:"0123456789abcdef0123456789abcdef"}})}),
+    URL,URLSearchParams,AbortController,setTimeout,clearTimeout,
+    location:{search:"?utm_source=whatsapp_groups&utm_campaign=grupo-centro&admin=true",replace(url:string){redirects.push(url)}},
+  });
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(redirects.length,1);
+  assert.equal(redirects[0],"https://www.vrixora.com/cliente/tuk/?conductor=0123456789abcdef0123456789abcdef&mode=full&utm_source=whatsapp_groups&utm_campaign=grupo-centro");
 });
