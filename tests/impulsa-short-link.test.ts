@@ -36,7 +36,7 @@ test("valid alias redirects only to the existing customer entry, errors do not l
         assert.equal(JSON.parse(String(opts.body)).params.target_alias,"gerson");
         return {ok:true,json:async()=>payload};
       },
-      URL,AbortController,setTimeout,clearTimeout,
+      URL,URLSearchParams,AbortController,setTimeout,clearTimeout,
       location:{replace(url:string){redirects.push(url);}},
     });
     await new Promise(resolve=>setImmediate(resolve));
