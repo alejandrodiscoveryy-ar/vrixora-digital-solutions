@@ -1,0 +1,34 @@
+name: Diagnóstico único dominio público Aliados
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aliados-routing-diagnostics.yml'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Comparar Cloudflare Pages y dominio real
+        shell: bash
+        run: |
+          set -uo pipefail
+          for domain in www.vrixora.com fe23ba64.vrixora-digital-solutions.pages.dev; do
+            for nick in conuco karamba gerson; do
+              echo "::group::$domain/tuk/$nick"
+              status=$(curl -sSL --max-time 20 -w '%{http_code}' -D /tmp/headers.txt -o /tmp/page.html "https://$domain/tuk/$nick" || true)
+              echo "HTTP=$status"
+              grep -iE '^(server|location|cf-ray|content-type|cache-control):' /tmp/headers.txt | head -n 10 || true
+              grep -oEi '<title>[^<]{0,160}</title>' /tmp/page.html | head -n 1 || true
+              grep -oEi '<meta property="og:title" content="[^"]{0,150}"' /tmp/page.html | head -n 1 || true
+              echo "TITULO_ALIADO=$(grep -c 'te invita a viajar' /tmp/page.html || true)"
+              echo "HTML_BYTES=$(wc -c </tmp/page.html || true)"
+              echo "::endgroup::"
+            done
+          done
+          echo "DNS CNAME www.vrixora.com"
+          dig +short CNAME www.vrixora.com || true
+          echo "DNS CNAME vrixora.com"
+          dig +short CNAME vrixora.com || true
