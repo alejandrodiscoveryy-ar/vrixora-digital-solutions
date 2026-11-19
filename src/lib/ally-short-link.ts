@@ -36,8 +36,8 @@ export async function allyShortLinkResponse(
   const nick = profile.display_name;
   const canonical = ORIGIN + "/tuk/" + slug;
   const active = profile.status === "active";
-  const title = nick + " te invita a viajar | Agencia TukTuk";
-  const description = "Solicita tu transporte en Agencia TukTuk desde el enlace de " + nick + ".";
+  const title = "TukTuk Aliados · " + nick;
+  const description = nick + " te invita a solicitar tu transporte con Agencia TukTuk.";
   const nonce = crypto.randomUUID().replace(/-/g,"");
   const customer = new URL(CUSTOMER);
   if (active) customer.searchParams.set("aliado",slug);
@@ -53,7 +53,7 @@ export async function allyShortLinkResponse(
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="${escapeHtml(title)}">
 <meta name="twitter:description" content="${escapeHtml(description)}">
 <style nonce="${nonce}">body{margin:0;background:#050b10;color:#f6f8fa;font:16px system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px;box-sizing:border-box}main{max-width:370px;text-align:center}h1{font-size:29px}strong{color:#e5a84e}p{color:#aab6c5;line-height:1.5}a{display:inline-block;padding:12px;color:#35d6a2;border:1px solid #35d6a2;border-radius:12px;text-decoration:none;margin:6px}</style></head>
-<body><main><h1>TUK<strong>TUK</strong></h1><p>${active?"Abriendo el enlace de "+escapeHtml(nick)+"…":"Este enlace de "+escapeHtml(nick)+" no está disponible."}</p>
+<body><main><h1>TUK<strong>TUK</strong> Aliados</h1><p>${active?"Abriendo el enlace de "+escapeHtml(nick)+"…":"Este enlace de "+escapeHtml(nick)+" no está disponible."}</p>
 <a href="${escapeHtml(customer.href)}">Abrir TukTuk Cliente</a></main>
 ${active?`<script nonce="${nonce}">(function(){
  const target=new URL(${JSON.stringify(customer.href)});
