@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/aliados-routing-diagnostics.yml'
+      - 'src/server.ts'
 permissions:
   contents: read
 jobs:
@@ -20,7 +21,7 @@ jobs:
               echo "::group::$domain/tuk/$nick"
               status=$(curl -sSL --max-time 20 -w '%{http_code}' -D /tmp/headers.txt -o /tmp/page.html "https://$domain/tuk/$nick" || true)
               echo "HTTP=$status"
-              grep -iE '^(server|location|cf-ray|content-type|cache-control):' /tmp/headers.txt | head -n 10 || true
+              grep -iE '^(server|location|cf-ray|content-type|cache-control|x-tuktuk-link-resolver):' /tmp/headers.txt | head -n 10 || true
               grep -oEi '<title>[^<]{0,160}</title>' /tmp/page.html | head -n 1 || true
               grep -oEi '<meta property="og:title" content="[^"]{0,150}"' /tmp/page.html | head -n 1 || true
               echo "TITULO_ALIADO=$(grep -c 'te invita a viajar' /tmp/page.html || true)"
