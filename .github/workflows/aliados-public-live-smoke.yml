@@ -1,0 +1,44 @@
+name: Aliados - verificar enlaces públicos tras integrar
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aliados-public-live-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live:
+    name: Dominio público y compatibilidad con Impulsa
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - name: Probar páginas personalizadas activas y ruta del conductor
+        shell: bash
+        run: |
+          set -euo pipefail
+          for nick in conuco karamba; do
+            ready=0
+            for try in $(seq 1 18); do
+              if curl --fail --silent --show-error --max-time 16 --retry 1 \
+                "https://www.vrixora.com/tuk/$nick" -o "/tmp/ally-$nick.html" \
+                && grep -q "$([[ "$nick" == "conuco" ]] && echo Conuco || echo Karamba) te invita a viajar" "/tmp/ally-$nick.html" \
+                && grep -q "og:url\" content=\"https://www.vrixora.com/tuk/$nick" "/tmp/ally-$nick.html"; then
+                ready=1
+                break
+              fi
+              sleep 10
+            done
+            if [ "$ready" != "1" ]; then
+              echo "::error::El dominio público todavía no sirve el enlace personalizado $nick"
+              exit 1
+            fi
+            echo "$nick: título personalizado y dominio verificados"
+          done
+          curl --fail --silent --show-error --max-time 20 --retry 2 \
+            'https://www.vrixora.com/tuk/gerson' -o /tmp/impulsa-gerson.html
+          if grep -q 'aliado=gerson' /tmp/impulsa-gerson.html; then
+            echo "::error::La ruta del conductor fue confundida con un Aliado"
+            exit 1
+          fi
+          echo "Conductor Gerson: sin reasignación a Aliados"
