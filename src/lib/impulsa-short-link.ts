@@ -11,7 +11,7 @@ function socialUrl(alias: string, format: "meta"|"image") {
 }
 async function readSocialProfile(alias: string, requestFetch: typeof fetch): Promise<SocialProfile|null> {
   try {
-    const response = await requestFetch(socialUrl(alias,"meta"),{signal:AbortSignal.timeout(3500),headers:{Accept:"application/json"},cache:"no-store",redirect:"error"});
+    const response = await requestFetch(socialUrl(alias,"meta"),{signal:AbortSignal.timeout(3500),headers:{Accept:"application/json"},cache:"no-store",redirect:"manual"});
     if (!response.ok) return null;
     const p=(await response.json()).data;
     if (!p || typeof p.name!=="string" || !p.name.trim() || typeof p.category!=="string" || !Array.isArray(p.services)) return null;
@@ -21,7 +21,7 @@ async function readSocialProfile(alias: string, requestFetch: typeof fetch): Pro
 async function previewPng(alias:string,request:Request,requestFetch:typeof fetch):Promise<Response> {
   const headers={"Cache-Control":"no-store, max-age=0","X-Content-Type-Options":"nosniff"};
   try {
-    const upstream=await requestFetch(socialUrl(alias,"image"),{method:request.method,signal:AbortSignal.timeout(15000),headers:{Accept:"image/png"},cache:"no-store",redirect:"error"});
+    const upstream=await requestFetch(socialUrl(alias,"image"),{method:request.method,signal:AbortSignal.timeout(15000),headers:{Accept:"image/png"},cache:"no-store",redirect:"manual"});
     if (upstream.status===404) return new Response(null,{status:404,headers});
     if (!upstream.ok || !upstream.headers.get("Content-Type")?.startsWith("image/png")) return new Response(null,{status:503,headers});
     return new Response(request.method==="HEAD"?null:upstream.body,{headers:{...headers,"Content-Type":"image/png"}});

@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 import vm from "node:vm";
 import { allyShortLinkResponse } from "../src/lib/ally-short-link.ts";
 
-const active = (url: URL | RequestInfo) => {
+const active = (url: URL | RequestInfo, init?: RequestInit) => {
+  assert.equal(init?.redirect, "manual", "Cloudflare Workers rechaza redirect:error");
   const u = new URL(String(url));
   assert.equal(u.hostname, "vvxvnywzgtqhlaqpxyqh.supabase.co");
   assert.equal(u.pathname, "/functions/v1/marketplace-ally-shortlink");
@@ -20,6 +21,7 @@ const unknown = async () => new Response(JSON.stringify({error:"NOT_FOUND"}),{st
 test("solo intercepta /tuk/nick; los enlaces Impulsa desconocidos conservan el resolver anterior",async()=>{
   assert.equal(await allyShortLinkResponse(new Request("https://www.vrixora.com/ref/001"),active),null);
   assert.equal(await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"),unknown),null);
+  assert.equal(await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson"),async()=>new Response(null,{status:302,headers:{Location:"https://example.com"}})),null);
   assert.equal(await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png"),active),null);
   assert.equal(await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/conuco",{method:"POST"}),active),null);
   assert.equal(await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/a"),active),null);

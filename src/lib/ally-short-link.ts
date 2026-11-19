@@ -22,7 +22,7 @@ export async function allyShortLinkResponse(
   try {
     const upstream = await requestFetch(lookup, {
       method: "GET", signal: AbortSignal.timeout(4000),
-      headers: {Accept: "application/json"}, cache: "no-store", redirect: "error",
+      headers: {Accept: "application/json"}, cache: "no-store", redirect: "manual",
     });
     if (upstream.status === 404) return null; // Existing verified driver link
     if (!upstream.ok) return null; // Do not break Impulsa on metadata outage

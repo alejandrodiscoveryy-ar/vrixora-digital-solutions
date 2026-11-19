@@ -4,7 +4,8 @@ import vm from "node:vm";
 import { impulsaShortLinkResponse } from "../src/lib/impulsa-short-link.ts";
 
 const noSocial = async () => new Response(null,{status:503});
-const social = async (url: URL | RequestInfo) => {
+const social = async (url: URL | RequestInfo, init?: RequestInit) => {
+  assert.equal(init?.redirect, "manual", "Cloudflare Workers rechaza redirect:error");
   const parsed = new URL(String(url));
   assert.equal(parsed.hostname,"vvxvnywzgtqhlaqpxyqh.supabase.co");
   assert.equal(parsed.searchParams.get("alias"),"gerson");
@@ -77,6 +78,7 @@ test("preview path serves only PNG, with HEAD and unavailable profile handling",
     const u=new URL(String(url));
     assert.equal(u.searchParams.get("alias"),"gerson");
     assert.equal(u.searchParams.get("format"),"image");
+    assert.equal(init?.redirect, "manual", "La vista previa no debe seguir redirecciones");
     return new Response(init?.method==="HEAD"?null:bytes,{headers:{"Content-Type":"image/png"}});
   };
   const response=await impulsaShortLinkResponse(new Request("https://www.vrixora.com/tuk/gerson/preview.png"),mock);
