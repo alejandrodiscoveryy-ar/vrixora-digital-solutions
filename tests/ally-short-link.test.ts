@@ -31,8 +31,10 @@ test("Conuco y Karamba usan título comercial, no nombre de cuenta, y URL breve"
     const response=await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/"+slug),active);
     assert.equal(response?.status,200);
     const html=await response!.text();
-    assert.match(html,new RegExp('property="og:title" content="'+(slug==="karamba"?"Karamba":"Conuco")+' te invita a viajar'));
+    assert.match(html,new RegExp('property="og:title" content="TukTuk Aliados · '+(slug==="karamba"?"Karamba":"Conuco")+'"'));
     assert.match(html,new RegExp('property="og:url" content="https://www.vrixora.com/tuk/'+slug+'"'));
+    assert.match(html,/<title>TukTuk Aliados · (Conuco|Karamba)<\/title>/);
+    assert.match(html,/<h1>TUK<strong>TUK<\/strong> Aliados<\/h1>/);
     assert.match(response!.headers.get("cache-control")??"",/no-store/);
     assert.match(response!.headers.get("content-security-policy")??"",/script-src 'nonce-/);
     assert.doesNotMatch(html,/report_key|report_secret|Yaqulin|Jorge Luis/);
@@ -71,4 +73,16 @@ test("nombres no fiables aparecen escapados en los metadatos",async()=>{
   const html=await r!.text();
   assert.doesNotMatch(html,/<script>alert\(1\)<\/script>/);
   assert.match(html,/A&quot;&gt;&lt;script&gt;/);
+});
+
+// Impulsa links must remain separate from the Aliados social identity.
+test("the Aliados preview never identifies partners as Impulsa", async () => {
+  for (const nick of ["conuco", "karamba"]) {
+    const result = await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/" + nick), active);
+    assert.equal(result?.status, 200);
+    const html = await result!.text();
+    assert.match(html, /TukTuk Aliados/);
+    assert.doesNotMatch(html, /TukTuk Impulsa|perfil de tu conductor/i);
+    assert.match(html, /<meta property="og:site_name" content="Agencia TukTuk">/);
+  }
 });
