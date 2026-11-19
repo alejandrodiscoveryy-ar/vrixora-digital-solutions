@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/aliados-public-live-smoke.yml'
+      - 'src/lib/ally-short-link.ts'
+      - 'src/lib/impulsa-short-link.ts'
   workflow_dispatch:
 permissions:
   contents: read
