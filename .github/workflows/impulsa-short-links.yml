@@ -6,6 +6,8 @@ on:
       - 'src/lib/impulsa-short-link.ts'
       - 'src/server.ts'
       - 'tests/impulsa-short-link.test.ts'
+      - 'src/lib/ally-short-link.ts'
+      - 'tests/ally-short-link.test.ts'
       - '.github/workflows/impulsa-short-links.yml'
 permissions:
   contents: read
@@ -16,6 +18,8 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
       - name: Run isolated short link tests
         run: node --experimental-strip-types --test tests/impulsa-short-link.test.ts
+      - name: Verify branded Aliado links and Impulsa fallback
+        run: node --experimental-strip-types --test tests/ally-short-link.test.ts
       - name: Verify deployed read-only Impulsa preview service
         run: |
           curl --fail --silent --show-error --retry 2 --max-time 30 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-impulsa-social?alias=gerson&format=meta' -o /tmp/impulsa-meta.json
