@@ -24,7 +24,7 @@ jobs:
             for try in $(seq 1 18); do
               if curl --fail --silent --show-error --max-time 16 --retry 1 \
                 "https://www.vrixora.com/tuk/$nick" -o "/tmp/ally-$nick.html" \
-                && grep -q "$([[ "$nick" == "conuco" ]] && echo Conuco || echo Karamba) te invita a viajar" "/tmp/ally-$nick.html" \
+                && grep -q "TukTuk Aliados · $([[ "$nick" == "conuco" ]] && echo Conuco || echo Karamba)" "/tmp/ally-$nick.html" \
                 && grep -q "og:url\" content=\"https://www.vrixora.com/tuk/$nick" "/tmp/ally-$nick.html"; then
                 ready=1
                 break
