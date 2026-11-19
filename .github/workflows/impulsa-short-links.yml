@@ -20,6 +20,20 @@ jobs:
         run: node --experimental-strip-types --test tests/impulsa-short-link.test.ts
       - name: Verify branded Aliado links and Impulsa fallback
         run: node --experimental-strip-types --test tests/ally-short-link.test.ts
+      - name: Verify live public Aliado lookup and driver fallback
+        run: |
+          curl --fail --silent --show-error --retry 2 --max-time 25 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-ally-shortlink?slug=conuco' -o /tmp/ally-conuco.json
+          curl --fail --silent --show-error --retry 2 --max-time 25 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-ally-shortlink?slug=karamba' -o /tmp/ally-karamba.json
+          node --input-type=module -e 'import fs from "node:fs"; import assert from "node:assert/strict"; for(const slug of ["conuco","karamba"]){const d=JSON.parse(fs.readFileSync("/tmp/ally-"+slug+".json","utf8")); assert.equal(d.slug,slug);assert.equal(d.status,"active");assert.deepEqual(Object.keys(d).sort(),["display_name","slug","status"]);}console.log("Public Aliados metadata validated");'
+          status=$(curl --silent --show-error -o /dev/null --max-time 25 -w '%{http_code}' 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-ally-shortlink?slug=gerson')
+          test "$status" = "404"
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: "1.4.2"
+      - name: Install pinned website dependencies
+        run: bun install --frozen-lockfile
+      - name: Compile website with the new short-link route (without publishing)
+        run: bun run build
       - name: Verify deployed read-only Impulsa preview service
         run: |
           curl --fail --silent --show-error --retry 2 --max-time 30 'https://vvxvnywzgtqhlaqpxyqh.supabase.co/functions/v1/marketplace-impulsa-social?alias=gerson&format=meta' -o /tmp/impulsa-meta.json
