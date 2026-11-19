@@ -50,9 +50,15 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const ally = await allyShortLinkResponse(request);
-      if (ally) return ally;
+      if (ally) {
+        ally.headers.set("X-TukTuk-Link-Resolver", "aliado-v1");
+        return ally;
+      }
       const impulsa = await impulsaShortLinkResponse(request);
-      if (impulsa) return impulsa;
+      if (impulsa) {
+        impulsa.headers.set("X-TukTuk-Link-Resolver", "impulsa-fallback-v1");
+        return impulsa;
+      }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
