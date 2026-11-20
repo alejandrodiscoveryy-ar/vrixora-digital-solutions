@@ -40,7 +40,17 @@ export async function allyShortLinkResponse(
   const description = nick + " te invita a solicitar tu transporte con Agencia TukTuk.";
   const nonce = crypto.randomUUID().replace(/-/g,"");
   const customer = new URL(CUSTOMER);
-  if (active) customer.searchParams.set("aliado",slug);
+  if (active) {
+    customer.searchParams.set("aliado",slug);
+    // La ruta de respaldo HTML debe conservar la misma atribución que
+    // la redirección JS. Nunca propagar parámetros ajenos ni sensibles.
+    const channel = url.searchParams.get("utm_source") || "";
+    if (/^(unknown|direct|whatsapp_private|whatsapp_groups|whatsapp_status|facebook|instagram|qr|other)$/.test(channel))
+      customer.searchParams.set("utm_source",channel);
+    const campaign = url.searchParams.get("utm_campaign") || "";
+    if (/^[a-z0-9_-]{1,32}$/.test(campaign))
+      customer.searchParams.set("utm_campaign",campaign);
+  }
   const html = `<!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
 <meta name="theme-color" content="#050B10">
@@ -57,12 +67,7 @@ export async function allyShortLinkResponse(
 <a href="${escapeHtml(customer.href)}">Abrir TukTuk Cliente</a></main>
 ${active?`<script nonce="${nonce}">(function(){
  const target=new URL(${JSON.stringify(customer.href)});
- const incoming=new URLSearchParams(typeof location.search==="string"?location.search:"");
- const channel=incoming.get("utm_source") || "";
- if(/^(unknown|direct|whatsapp_private|whatsapp_groups|whatsapp_status|facebook|instagram|qr|other)$/.test(channel))
-   target.searchParams.set("utm_source",channel);
- const campaign=incoming.get("utm_campaign") || "";
- if(/^[a-z0-9_-]{1,32}$/.test(campaign)) target.searchParams.set("utm_campaign",campaign);
+ // Ruta automática y botón manual usan exactamente el mismo enlace seguro.
  location.replace(target.href);
 })();</script>`:""}
 </body></html>`;
