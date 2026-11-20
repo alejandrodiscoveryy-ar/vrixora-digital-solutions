@@ -56,6 +56,26 @@ test("la navegación preserva atribución Aliado y solo parámetros UTM permitid
     "https://www.vrixora.com/cliente/tuk/?aliado=conuco&utm_source=instagram&utm_campaign=lanzamiento"
   ]);
 });
+test("el botón de respaldo conserva Aliado y UTM seguros cuando JavaScript falla",async()=>{
+  const response=await allyShortLinkResponse(new Request(
+    "https://www.vrixora.com/tuk/conuco?utm_source=whatsapp_groups&utm_campaign=grupo_centro&phone=123&token=secreto"
+  ),active);
+  const html=await response!.text();
+  assert.match(html,/href="https:\/\/www\.vrixora\.com\/cliente\/tuk\/\?aliado=conuco&amp;utm_source=whatsapp_groups&amp;utm_campaign=grupo_centro"/);
+  assert.doesNotMatch(html,/phone=123|token=secreto/);
+  const invalid=await allyShortLinkResponse(new Request(
+    "https://www.vrixora.com/tuk/conuco?utm_source=malicioso&utm_campaign=email%40externo&phone=123"
+  ),active);
+  const invalidHtml=await invalid!.text();
+  assert.match(invalidHtml,/href="https:\/\/www\.vrixora\.com\/cliente\/tuk\/\?aliado=conuco"/);
+  assert.doesNotMatch(invalidHtml,/utm_source=|utm_campaign=|phone=123/);
+  const pausedResp=await allyShortLinkResponse(new Request(
+    "https://www.vrixora.com/tuk/conuco?utm_source=facebook"
+  ),paused);
+  const pausedHtml=await pausedResp!.text();
+  assert.doesNotMatch(pausedHtml,/\?aliado=conuco|utm_source=facebook/);
+});
+
 test("pausa retiene la marca pero no atribuye ni redirige viajes",async()=>{
   const resp=await allyShortLinkResponse(new Request("https://www.vrixora.com/tuk/conuco"),paused);
   const html=await resp!.text();
